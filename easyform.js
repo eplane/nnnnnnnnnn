@@ -7,11 +7,18 @@
  * 属性列表：
  *      null
  *      email
- *      char-normal
+ *      char-normal         英文、数字、下划线
+ *      char-chinese        中文、英文、数字、下划线、中文标点符号
  *      length:1-10 / length:4
  *      equal:xxx                               等于某个对象的值，冒号后是jq选择器语法
  *      ajax:fun()
  *      real-time                               实时检查
+ *      date
+ *      time
+ *      datetime
+ *      money
+ *      uint :1           正整数 , 参数为起始值
+ *
  *
  *  ------ requirement list ----------------------------------------------------
  * 1. 2014-11-18 没有排除隐藏起来的input和hidden类型的input
@@ -20,6 +27,7 @@
  * 4. 2014-11-19 没有考虑file类型等特殊类型的判断
  * 5. 2014-11-20 当网页载入时有隐藏的控件，之后控件显示出来后，其关联的easytip不能正确显示位置
  * 6. 2014-11-21 目前不支持属性继承
+ * 7. 2014-11-21 实时检查的时候，弹出的easytip有时候会导致弹出信息的消息出错
  *
  *
  * ------ change list -------------------------------------------------
@@ -53,13 +61,13 @@
 
     //方法
     _easyvalidation.prototype = {
-        
+
         init: function ()
         {
             var inputs = this.inputs;
             var ei = this;
             var result = this.result;
-
+            ei._load();
 
             //改写 submit 的属性，便于控制
             this.submit_button = this.form.find("input:submit");
@@ -88,12 +96,13 @@
 
         _load: function ()
         {
-            this.inputs.splice(0,  this.inputs.length);
+            this.inputs.splice(0, this.inputs.length);
 
             var inputs = this.inputs;
             var form = this.form;
             var easytip = this.options.easytip;
             var result = this.result;
+            var counter = this.counter;
 
             this.form.find("input:visible").each(function (index, input)
             {
@@ -276,7 +285,7 @@
             if (!!this.error)
                 this.error(this.input, rule);
 
-            if( false == this.is_error )
+            if (false == this.is_error)
             {
                 var msg = this.input.attr(rule + "-message");
 
@@ -338,6 +347,15 @@
                     return ei._success_rule(r);
             },
 
+            "char-chinese": function (ei, v, r, p)
+            {
+                //if (false == /^[\w]|[\u4e00-\u9fa5]+$/.test(v))
+                if (false == /^([\w]|[\u4e00-\u9fa5]|[。，、？“‘！：【】《》（）——-])+$/.test(v))
+                    return ei._error(r);
+                else
+                    return ei._success_rule(r);
+            },
+
             "email": function (ei, v, r, p)
             {
                 if (false == /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(v))
@@ -361,7 +379,8 @@
 
             "equal": function (ei, v, r, p)
             {
-                if ($(p).val() != v)
+                var pair = $(p);
+                if (0 == pair.length || pair.val() != v)
                     return ei._error(r);
                 else
                     return ei._success_rule(r);
@@ -383,6 +402,49 @@
                 });
 
                 eval(p);
+            },
+
+            "date": function (ei, v, r, p)
+            {
+                if (false == /^(\d{4})-(\d{2})-(\d{2})$/.test(v))
+                    return ei._error(r);
+                else
+                    return ei._success_rule(r);
+            },
+
+            "time": function (ei, v, r, p)
+            {
+                if (false == /^(\d{2}):(\d{2})$/.test(v))
+                    return ei._error(r);
+                else
+                    return ei._success_rule(r);
+            },
+
+            "datetime": function (ei, v, r, p)
+            {
+                if (false == /^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})$/.test(v))
+                    return ei._error(r);
+                else
+                    return ei._success_rule(r);
+            },
+
+            "money": function (ei, v, r, p)
+            {
+                if (false == /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/.test(v))
+                    return ei._error(r);
+                else
+                    return ei._success_rule(r);
+            },
+
+            "uint": function (ei, v, r, p)
+            {
+                v = parseInt(v);
+                p = parseInt(p);
+
+                if (isNaN(v) || isNaN(p) || v < p || v < 0)
+                    return ei._error(r);
+                else
+                    return ei._success_rule(r);
             }
         }
     };
