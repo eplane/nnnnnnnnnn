@@ -9,14 +9,15 @@
  *      email
  *      char-normal         英文、数字、下划线
  *      char-chinese        中文、英文、数字、下划线、中文标点符号
+ *      char-english        英文、数字、下划线、英文标点符号
  *      length:1-10 / length:4
  *      equal:xxx                               等于某个对象的值，冒号后是jq选择器语法
  *      ajax:fun()
  *      real-time                               实时检查
- *      date
- *      time
- *      datetime
- *      money
+ *      date                2014-10-31
+ *      time                10:30:00
+ *      datetime        2014-10-31 10:30:00
+ *      money           正数，两位小数
  *      uint :1           正整数 , 参数为起始值
  *
  *
@@ -57,6 +58,11 @@
         this.inputs = [];
 
         this.counter = 0;   //已经判断成功的input计数
+        this.is_submit = true;
+
+        //事件定义
+        this.success = null;
+        this.error = null;
     };
 
     //方法
@@ -79,65 +85,75 @@
                 //提交前判断
                 button.click(function ()
                 {
-                    ei._load();                                     //重新载入控件
-                    result.splice(0, result.length);     //清空前一次的结果
-
-                    counter = 0;
-                    is_submit = true;
-
-                    var index;
-                    for (index in inputs)
-                    {
-                        inputs[index].validation();
-                    }
+                    ei.submit(true);
                 });
             });
+
+            return this;
         },
 
         _load: function ()
         {
             this.inputs.splice(0, this.inputs.length);
-
-            var inputs = this.inputs;
-            var form = this.form;
-            var easytip = this.options.easytip;
-            var result = this.result;
-            var counter = this.counter;
+            var ev = this;
 
             this.form.find("input:visible").each(function (index, input)
             {
-                //hidden不做判断
-                if (input.type != "hidden" && input.type != "button" && input.type != "submit")
+                //排除 hidden、button、submit、checkbox、radio、file
+                if (input.type != "hidden" && input.type != "button" && input.type != "submit" && input.type != "checkbox" && input.type != "radio" && input.type != "file")
                 {
-                    var checker = $(input).easyinput({easytip: easytip});
+                    var checker = $(input).easyinput({easytip: ev.easytip});
 
                     checker.error = function (e)
                     {
-                        is_submit = false;
-                        result.push(e);
+                        ev.is_submit = false;
+                        ev.result.push(e);
+
+                        if (!!ev.error)    //失败事件
+                            ev.error(e);
                     };
 
                     checker.success = function (e)
                     {
-                        counter++;
-                        if (counter == inputs.length)
+                        ev.counter++;
+                        if (ev.counter == ev.inputs.length)
                         {
-                            counter = 0;
+                            ev.counter = 0;
 
-                            if (is_submit)
+                            if (!!ev.success)    //成功事件
+                                ev.success();
+
+                            if (!!ev.is_submit)
                             {
-                                form.submit();
+                                ev.form.submit();
                             }
                         }
                     };
 
-                    inputs.push(checker);
+                    ev.inputs.push(checker);
                 }
             });
+        },
 
+        /*
+         * 表单提交函数
+         * @submit：bool值，用于定义是否真的提交表单
+         * */
+        submit: function (submit)
+        {
+            this._load();                                               //重新载入控件
+            this.result.splice(0, this.result.length);     //清空前一次的结果
 
-            var o = 0;
+            this.counter = 0;
+            this.is_submit = submit;
+
+            var index;
+            for (index in this.inputs)
+            {
+                this.inputs[index].validation();
+            }
         }
+
     };
 
     //添加到jquery
@@ -349,8 +365,15 @@
 
             "char-chinese": function (ei, v, r, p)
             {
-                //if (false == /^[\w]|[\u4e00-\u9fa5]+$/.test(v))
-                if (false == /^([\w]|[\u4e00-\u9fa5]|[。，、？“‘！：【】《》（）——-])+$/.test(v))
+                if (false == /^([\w]|[\u4e00-\u9fa5]|[ 。，、？￥“‘！：【】《》（）——+-])+$/.test(v))
+                    return ei._error(r);
+                else
+                    return ei._success_rule(r);
+            },
+
+            "char-english": function (ei, v, r, p)
+            {
+                if (false == /^([\w]|[ .,?!$'":+-])+$/.test(v))
                     return ei._error(r);
                 else
                     return ei._success_rule(r);
@@ -414,7 +437,7 @@
 
             "time": function (ei, v, r, p)
             {
-                if (false == /^(\d{2}):(\d{2})$/.test(v))
+                if (false == /^(\d{2}):(\d{2}):(\d{2})$/.test(v))
                     return ei._error(r);
                 else
                     return ei._success_rule(r);
@@ -422,7 +445,7 @@
 
             "datetime": function (ei, v, r, p)
             {
-                if (false == /^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})$/.test(v))
+                if (false == /^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/.test(v))
                     return ei._error(r);
                 else
                     return ei._success_rule(r);
