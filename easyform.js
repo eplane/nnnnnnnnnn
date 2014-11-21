@@ -19,13 +19,15 @@
  * 3. 2014-11-19 ajax不支持异步
  * 4. 2014-11-19 没有考虑file类型等特殊类型的判断
  * 5. 2014-11-20 当网页载入时有隐藏的控件，之后控件显示出来后，其关联的easytip不能正确显示位置
+ * 6. 2014-11-21 目前不支持属性继承
  *
  *
  * ------ change list -------------------------------------------------
  * 1. 2014-11-18 requirement list 1 完成
  * 2. 2014-11-18 支持实时检查
  * 3. 2014-11-18 requirement list 2 完成
- * 4. 2014-11-20 支持了ajax异步验证方式。
+ * 4. 2014-11-20 requirement list 3支持了ajax异步验证方式。
+ * 5. 2014-11-21 requirement list 5完成
  *
  * */
 ;
@@ -51,75 +53,7 @@
 
     //方法
     _easyvalidation.prototype = {
-
-        /*init: function ()
-        {
-            var result = this.result;
-            var inputs = this.inputs;
-            var counter = this.counter;
-            var form = this.form;
-
-            var is_submit = false;
-
-            var easytip = this.options.easytip;
-
-            //隐藏的控件不做判断
-            this.form.find("input:visible").each(function (index, input)
-            {
-                //hidden不做判断
-                if (input.type != "hidden" && input.type != "button" && input.type != "submit")
-                {
-                    var checker = $(input).easyinput({easytip: easytip});
-
-                    checker.error = function (e)
-                    {
-                        is_submit = false;
-                        result.push(e);
-                    };
-
-                    checker.success = function (e)
-                    {
-                        counter++;
-                        if (counter == inputs.length)
-                        {
-                            counter = 0;
-
-                            if (is_submit)
-                            {
-                                form.submit();
-                            }
-                        }
-                    };
-
-                    inputs.push(checker);
-                }
-            });
-
-            //改写 submit 的属性，便于控制
-            this.submit_button = this.form.find("input:submit");
-            this.submit_button.each(function ()
-            {
-                var button = $(this);
-                button.attr("type", "button");
-
-                //提交前判断
-                button.click(function ()
-                {
-                    result.splice(0, result.length);
-                    counter = 0;
-                    is_submit = true;
-
-                    var index;
-                    for (index in inputs)
-                    {
-                        inputs[index].validation();
-                    }
-                });
-            });
-
-            return this;
-        },*/
-
+        
         init: function ()
         {
             var inputs = this.inputs;
