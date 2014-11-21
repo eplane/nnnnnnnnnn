@@ -1,5 +1,5 @@
 /*
- * 表单验证插件 easyvalidation
+ * 表单验证插件 easyform
  * Author:LeeLanfei
  * 2014-11-5
  * 用于表单验证
@@ -45,7 +45,7 @@
     /*
      构造函数
      **/
-    var _easyvalidation = function (ele, opt)
+    var _easyform = function (ele, opt)
     {
         this.form = ele;
 
@@ -66,7 +66,7 @@
     };
 
     //方法
-    _easyvalidation.prototype = {
+    _easyform.prototype = {
 
         init: function ()
         {
@@ -157,9 +157,9 @@
     };
 
     //添加到jquery
-    $.fn.easyvalidation = function (options)
+    $.fn.easyform = function (options)
     {
-        var validation = new _easyvalidation(this, options);
+        var validation = new _easyform(this, options);
 
         return validation.init();
     };
@@ -202,7 +202,7 @@
 
             //是否实时检查
             var easyinput = this;
-            var rule = this.input.attr("easyvalidation");
+            var rule = this.input.attr("easyform");
             if (!!rule && -1 != rule.indexOf("real-time"))
             {
                 this.input.blur(function ()
@@ -254,7 +254,7 @@
         {
             this.value = this.input.val();
             this.counter = 0;   //计数器清零
-            this.rule = this.input.attr("easyvalidation");
+            this.rule = this.input.attr("easyform");
 
             this.is_error = false;
 
@@ -270,7 +270,7 @@
             }
         },
 
-        //easyvalidation 解析函数
+        //easyform 解析函数
         _parse: function (str)
         {
             this.rules = [];
