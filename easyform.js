@@ -70,9 +70,7 @@
 
         init: function ()
         {
-            var inputs = this.inputs;
             var ei = this;
-            var result = this.result;
             ei._load();
 
             //改写 submit 的属性，便于控制
