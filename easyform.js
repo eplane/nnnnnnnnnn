@@ -5,7 +5,7 @@
  * 用于表单验证
  * 只要在需要验证的控件上添加validation-rules属性即可，多个属性用[;]连接
  * 属性列表：
- *      none
+ *      null
  *      email
  *      char-normal
  *      length:1-10 / length:4
@@ -18,6 +18,7 @@
  * 2. 2014-11-18 需要支持有条件的提示信息。
  * 3. 2014-11-19 ajax不支持异步
  * 4. 2014-11-19 没有考虑file类型等特殊类型的判断
+ * 5. 2014-11-20 当网页载入时有隐藏的控件，之后控件显示出来后，其关联的easytip不能正确显示位置
  *
  *
  * ------ change list -------------------------------------------------
@@ -51,7 +52,7 @@
     //方法
     _easyvalidation.prototype = {
 
-        init: function ()
+        /*init: function ()
         {
             var result = this.result;
             var inputs = this.inputs;
@@ -83,7 +84,7 @@
                         {
                             counter = 0;
 
-                            if(is_submit)
+                            if (is_submit)
                             {
                                 form.submit();
                             }
@@ -117,6 +118,82 @@
             });
 
             return this;
+        },*/
+
+        init: function ()
+        {
+            var inputs = this.inputs;
+            var ei = this;
+            var result = this.result;
+
+
+            //改写 submit 的属性，便于控制
+            this.submit_button = this.form.find("input:submit");
+            this.submit_button.each(function ()
+            {
+                var button = $(this);
+                button.attr("type", "button");
+
+                //提交前判断
+                button.click(function ()
+                {
+                    ei._load();                                     //重新载入控件
+                    result.splice(0, result.length);     //清空前一次的结果
+
+                    counter = 0;
+                    is_submit = true;
+
+                    var index;
+                    for (index in inputs)
+                    {
+                        inputs[index].validation();
+                    }
+                });
+            });
+        },
+
+        _load: function ()
+        {
+            this.inputs.splice(0,  this.inputs.length);
+
+            var inputs = this.inputs;
+            var form = this.form;
+            var easytip = this.options.easytip;
+            var result = this.result;
+
+            this.form.find("input:visible").each(function (index, input)
+            {
+                //hidden不做判断
+                if (input.type != "hidden" && input.type != "button" && input.type != "submit")
+                {
+                    var checker = $(input).easyinput({easytip: easytip});
+
+                    checker.error = function (e)
+                    {
+                        is_submit = false;
+                        result.push(e);
+                    };
+
+                    checker.success = function (e)
+                    {
+                        counter++;
+                        if (counter == inputs.length)
+                        {
+                            counter = 0;
+
+                            if (is_submit)
+                            {
+                                form.submit();
+                            }
+                        }
+                    };
+
+                    inputs.push(checker);
+                }
+            });
+
+
+            var o = 0;
         }
     };
 
@@ -152,6 +229,8 @@
         this.options = $.extend({}, this.defaults, opt);
 
         this.counter = 0;   //计数器，记录已经有多少个条件成功
+
+        this.is_error = false;
     };
 
     //单个input的检查器
@@ -160,6 +239,25 @@
         init: function ()
         {
             //初始化easytip
+            this._init_easytip();
+
+            //是否实时检查
+            var easyinput = this;
+            var rule = this.input.attr("easyvalidation");
+            if (!!rule && -1 != rule.indexOf("real-time"))
+            {
+                this.input.blur(function ()
+                {
+                    easyinput.validation();
+                });
+            }
+
+            return this;
+        },
+
+        //初始化easytip
+        _init_easytip: function ()
+        {
             if (!!this.options.easytip)
             {
                 var tipoptions = $(this.input).attr("easytip");
@@ -187,19 +285,6 @@
 
                 this.options.easytip = $(this.input).easytip(options);
             }
-
-            //是否实时检查
-            var easyinput = this;
-            var rule = this.input.attr("easyvalidation");
-            if (!!rule && -1 != rule.indexOf("real-time"))
-            {
-                this.input.blur(function ()
-                {
-                    easyinput.validation();
-                });
-            }
-
-            return this;
         },
 
         /**
@@ -212,17 +297,11 @@
             this.counter = 0;   //计数器清零
             this.rule = this.input.attr("easyvalidation");
 
+            this.is_error = false;
+
             this._parse(this.rule);
 
-            //默认不能为空
-            if (!this.rule && this.value == "")
-            {
-                return this._error("require");
-            }
-            else if (!this.rule && this.value != "")
-            {
-                return this._success();
-            }
+            this._null(this, this.value, this.rule);
 
             for (var i = 0; i < this.rules.length; i++)
             {
@@ -263,16 +342,21 @@
             if (!!this.error)
                 this.error(this.input, rule);
 
-            var msg = this.input.attr(rule + "-message");
-
-            var msg = !msg ? this.message : msg;
-
-            if (!!this.options.easytip)
+            if( false == this.is_error )
             {
-                this.options.easytip.show(msg);
+                var msg = this.input.attr(rule + "-message");
+
+                var msg = !msg ? this.message : msg;
+
+                if (!!this.options.easytip)
+                {
+                    this.options.easytip.show(msg);
+                }
+
+                this.is_error = true;
             }
 
-            return {error: true, target: this.input, rule: rule, message: msg};
+            return false;
         },
 
         _success: function ()
@@ -280,7 +364,7 @@
             if (!!this.success)
                 this.success(this.input);
 
-            return {error: false, target: this.input, message: "正确"};
+            return true;
         },
 
         _success_rule: function (rule)
@@ -288,19 +372,30 @@
             this.counter += 1;
 
             if (this.counter == this.rules.length)
-                return this._success();
+                this._success();
+
+            return true;
+        },
+
+        _null: function (ei, v, r)
+        {
+            if (!v)
+            {
+                if (!!r && -1 != r.indexOf("null")) //rule不为空并且含有null
+                {
+                    return ei._success();
+                }
+                else
+                {
+                    return ei._error("require");
+                }
+            }
         },
 
         /*
          * 按照各种rule进行判断的函数数组
          * */
         _judge: {
-            "none": function (ei, v, r, p)
-            {
-                if (v == "")
-                    return ei._success();
-            },
-
             "char-normal": function (ei, v, r, p)
             {
                 if (false == /^\w+$/.test(v))
@@ -343,7 +438,7 @@
                 // 为ajax处理注册自定义事件
                 // HTML中执行相关的AJAX时，需要发送事件 easyinput-ajax 来通知 easyinput
                 // 该事件只有一个bool参数，easyinput 会根据这个值判断ajax验证是否成功
-                ei.input.delegate("","easyinput-ajax", function (e, p)
+                ei.input.delegate("", "easyinput-ajax", function (e, p)
                 {
                     ei.input.unbind("easyinput-ajax");
 
