@@ -14,11 +14,11 @@
  *      equal:xxx                               等于某个对象的值，冒号后是jq选择器语法
  *      ajax:fun()
  *      real-time                               实时检查
- *      date                2014-10-31
- *      time                10:30:00
- *      datetime        2014-10-31 10:30:00
- *      money           正数，两位小数
- *      uint :1           正整数 , 参数为起始值
+ *      date                    2014-10-31
+ *      time                    10:30:00
+ *      datetime            2014-10-31 10:30:00
+ *      money               正数，两位小数
+ *      uint :1                 正整数 , 参数为起始值
  *
  *
  *  ------ requirement list ----------------------------------------------------
@@ -246,7 +246,6 @@
 
         /**
          * 规则判断
-         * @ajax 是否执行ajax判断
          * */
         validation: function ()
         {
@@ -263,8 +262,8 @@
             for (var i = 0; i < this.rules.length; i++)
             {
                 //调用条件函数
-                if (!!this._judge[this.rules[i].rule])
-                    this._judge[this.rules[i].rule](this, this.value, this.rules[i].rule, this.rules[i].param);
+                if (!!this.judge[this.rules[i].rule])
+                    this.judge[this.rules[i].rule](this, this.value, this.rules[i].rule, this.rules[i].param);
             }
         },
 
@@ -289,7 +288,7 @@
                     param = s.substr(p + 1);
                 }
 
-                if (!!this._judge[rule])
+                if (!!this.judge[rule])
                     this.rules.push({rule: rule, param: param});
             }
         },
@@ -351,8 +350,9 @@
 
         /*
          * 按照各种rule进行判断的函数数组
+         * 通过对judge添加成员函数，可以扩充规则
          * */
-        _judge: {
+        judge: {
             "char-normal": function (ei, v, r, p)
             {
                 if (false == /^\w+$/.test(v))
