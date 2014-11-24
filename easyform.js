@@ -3,7 +3,7 @@
  * Author:LeeLanfei
  * 2014-11-5
  * 用于表单验证
- * 只要在需要验证的控件上添加validation-rules属性即可，多个属性用[;]连接
+ * 只要在需要验证的控件上添加easyform属性即可，多个属性用[;]连接
  * 属性列表：
  *      null
  *      email
@@ -263,7 +263,7 @@
             {
                 //调用条件函数
                 if (!!this.judge[this.rules[i].rule])
-                    this.judge[this.rules[i].rule](this, this.value, this.rules[i].rule, this.rules[i].param);
+                    this.judge[this.rules[i].rule](this, this.value, this.rules[i].param);
             }
         },
 
@@ -353,39 +353,39 @@
          * 通过对judge添加成员函数，可以扩充规则
          * */
         judge: {
-            "char-normal": function (ei, v, r, p)
+            "char-normal": function (ei, v, p)
             {
                 if (false == /^\w+$/.test(v))
-                    return ei._error(r);
+                    return ei._error("char-normal");
                 else
-                    return ei._success_rule(r);
+                    return ei._success_rule("char-normal");
             },
 
-            "char-chinese": function (ei, v, r, p)
+            "char-chinese": function (ei, v, p)
             {
                 if (false == /^([\w]|[\u4e00-\u9fa5]|[ 。，、？￥“‘！：【】《》（）——+-])+$/.test(v))
-                    return ei._error(r);
+                    return ei._error("char-chinese");
                 else
-                    return ei._success_rule(r);
+                    return ei._success_rule("char-chinese");
             },
 
-            "char-english": function (ei, v, r, p)
+            "char-english": function (ei, v, p)
             {
                 if (false == /^([\w]|[ .,?!$'":+-])+$/.test(v))
-                    return ei._error(r);
+                    return ei._error("char-english");
                 else
-                    return ei._success_rule(r);
+                    return ei._success_rule("char-english");
             },
 
-            "email": function (ei, v, r, p)
+            "email": function (ei, v, p)
             {
                 if (false == /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(v))
-                    return ei._error(r);
+                    return ei._error("email");
                 else
-                    return ei._success_rule(r);
+                    return ei._success_rule("email");
             },
 
-            "length": function (ei, v, r, p)
+            "length": function (ei, v, p)
             {
                 var range = p.split("-");
 
@@ -393,21 +393,21 @@
                 if (range.length == 1) range[1] = range[0];
 
                 if (v.length < range[0] || v.length > range[1])
-                    return ei._error(r);
+                    return ei._error("length");
                 else
-                    return ei._success_rule(r);
+                    return ei._success_rule("length");
             },
 
-            "equal": function (ei, v, r, p)
+            "equal": function (ei, v, p)
             {
                 var pair = $(p);
                 if (0 == pair.length || pair.val() != v)
-                    return ei._error(r);
+                    return ei._error("equal");
                 else
-                    return ei._success_rule(r);
+                    return ei._success_rule("equal");
             },
 
-            "ajax": function (ei, v, r, p)
+            "ajax": function (ei, v, p)
             {
                 // 为ajax处理注册自定义事件
                 // HTML中执行相关的AJAX时，需要发送事件 easyinput-ajax 来通知 easyinput
@@ -417,55 +417,55 @@
                     ei.input.unbind("easyinput-ajax");
 
                     if (false == p)
-                        return ei._error(r);
+                        return ei._error("ajax");
                     else
-                        return ei._success_rule(r);
+                        return ei._success_rule("ajax");
                 });
 
                 eval(p);
             },
 
-            "date": function (ei, v, r, p)
+            "date": function (ei, v, p)
             {
                 if (false == /^(\d{4})-(\d{2})-(\d{2})$/.test(v))
-                    return ei._error(r);
+                    return ei._error("date");
                 else
-                    return ei._success_rule(r);
+                    return ei._success_rule("date");
             },
 
-            "time": function (ei, v, r, p)
+            "time": function (ei, v, p)
             {
                 if (false == /^(\d{2}):(\d{2}):(\d{2})$/.test(v))
-                    return ei._error(r);
+                    return ei._error("time");
                 else
-                    return ei._success_rule(r);
+                    return ei._success_rule(v);
             },
 
-            "datetime": function (ei, v, r, p)
+            "datetime": function (ei, v, p)
             {
                 if (false == /^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/.test(v))
-                    return ei._error(r);
+                    return ei._error("datetime");
                 else
-                    return ei._success_rule(r);
+                    return ei._success_rule("datetime");
             },
 
-            "money": function (ei, v, r, p)
+            "money": function (ei, v, p)
             {
                 if (false == /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/.test(v))
-                    return ei._error(r);
+                    return ei._error("money");
                 else
-                    return ei._success_rule(r);
+                    return ei._success_rule("money");
             },
 
-            "uint": function (ei, v, r, p)
+            "uint": function (ei, v, p)
             {
                 v = parseInt(v);
                 p = parseInt(p);
 
                 if (isNaN(v) || isNaN(p) || v < p || v < 0)
-                    return ei._error(r);
+                    return ei._error("uint");
                 else
-                    return ei._success_rule(r);
+                    return ei._success_rule("uint");
             }
         }
     };
