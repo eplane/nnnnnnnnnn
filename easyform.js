@@ -145,6 +145,15 @@
             this.counter = 0;
             this.is_submit = submit;
 
+            if (this.inputs.length == 0)
+            {
+                if (!!this.success)    //成功事件
+                    this.success();
+
+                if (this.is_submit)
+                    this.form.submit();
+            }
+
             var index;
             for (index in this.inputs)
             {
