@@ -10,7 +10,7 @@
  *      char-normal         英文、数字、下划线
  *      char-chinese        中文、英文、数字、下划线、中文标点符号
  *      char-english        英文、数字、下划线、英文标点符号
- *      length:1-10 / length:4
+ *      length:1 10 / length:4
  *      equal:xxx                               等于某个对象的值，冒号后是jq选择器语法
  *      ajax:fun()
  *      real-time                               实时检查
@@ -18,7 +18,8 @@
  *      time                    10:30:00
  *      datetime            2014-10-31 10:30:00
  *      money               正数，两位小数
- *      uint :1                 正整数 , 参数为起始值
+ *      uint :1 100                 正整数 , 参数为起始值和最大值
+ *      phone:12 15
  *
  *
  *  ------ requirement list ----------------------------------------------------
@@ -396,7 +397,7 @@
 
             "length": function (ei, v, p)
             {
-                var range = p.split("-");
+                var range = p.split(" ");
 
                 //如果长度设置为 length:6 这样的格式
                 if (range.length == 1) range[1] = range[0];
@@ -469,12 +470,36 @@
             "uint": function (ei, v, p)
             {
                 v = parseInt(v);
-                p = parseInt(p);
 
-                if (isNaN(v) || isNaN(p) || v < p || v < 0)
+                var range = p.split(" ");
+
+                if (range.length == 1) range[1] = range[0];
+
+                range[0] = parseInt(range[0]);
+                range[1] = parseInt(range[1]);
+
+                if (isNaN(v) || isNaN(range[0]) || isNaN(range[1]) || v < range[0] || v > range[1] || v < 0)
                     return ei._error("uint");
                 else
                     return ei._success_rule("uint");
+            },
+
+            "phone": function (ei, v, p)
+            {
+                var range = p.split(" ");
+
+                var iv = parseInt(v);
+
+                if (isNaN(iv) || v < 0)
+                    return ei._error("phone");
+
+                //如果p只有一个数值
+                if (range.length == 1) range[1] = range[0];
+
+                if (v.length < range[0] || v.length > range[1])
+                    return ei._error("phone");
+                else
+                    return ei._success_rule("phone");
             }
         }
     };
