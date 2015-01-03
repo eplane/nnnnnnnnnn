@@ -10,7 +10,7 @@
  *      char-normal         英文、数字、下划线
  *      char-chinese        中文、英文、数字、下划线、中文标点符号
  *      char-english        英文、数字、下划线、英文标点符号
- *      length:1-10 / length:4
+ *      length:1 10 / length:4
  *      equal:xxx                               等于某个对象的值，冒号后是jq选择器语法
  *      ajax:fun()
  *      real-time                               实时检查
@@ -18,7 +18,7 @@
  *      time                    10:30:00
  *      datetime            2014-10-31 10:30:00
  *      money               正数，两位小数
- *      uint :1                 正整数 , 参数为起始值
+ *      uint :1 100                 正整数 , 参数为起始值和最大值
  *
  *
  *  ------ requirement list ----------------------------------------------------
@@ -40,6 +40,7 @@
  *
  * */
 ;
+//easyform
 (function ($, window, document, undefined)
 {
     /*
@@ -48,6 +49,12 @@
     var _easyform = function (ele, opt)
     {
         this.form = ele;
+
+        if (0 == this.form.length && "form" != this.form[0].localName)
+        {
+            throw new Error("easyform need a form !");
+        }
+
 
         this.defaults = {
             easytip: true
@@ -174,14 +181,20 @@
 
 })(jQuery, window, document);
 
+//easyinput
 (function ($, window, document, undefined)
 {
     //单个input的检查器构造函数
     var _easyinput = function (input, opt)
     {
         this.input = input;
-        this.rules = [];
 
+        if (0 == this.input.length && "input" != this.input[0].localName)
+        {
+            throw new Error("easyform need a input object !");
+        }
+
+        this.rules = [];
         this.message = $(input).attr("message");
         this.message = (!!this.message ? this.message : "格式错误!");
 
@@ -266,13 +279,14 @@
 
             this._parse(this.rule);
 
-            this._null(this, this.value, this.rule);
-
-            for (var i = 0; i < this.rules.length; i++)
+            if (false == this._null(this, this.value, this.rule))
             {
-                //调用条件函数
-                if (!!this.judge[this.rules[i].rule])
-                    this.judge[this.rules[i].rule](this, this.value, this.rules[i].param);
+                for (var i = 0; i < this.rules.length; i++)
+                {
+                    //调用条件函数
+                    if (!!this.judge[this.rules[i].rule])
+                        this.judge[this.rules[i].rule](this, this.value, this.rules[i].param);
+                }
             }
         },
 
@@ -311,7 +325,7 @@
             {
                 var msg = this.input.attr(rule + "-message");
 
-                var msg = !msg ? this.message : msg;
+                msg = !msg ? this.message : msg;
 
                 if (!!this.options.easytip)
                 {
@@ -352,8 +366,12 @@
                 }
                 else
                 {
-                    return ei._error("require");
+                    return ei._error("null");
                 }
+            }
+            else
+            {
+                return false;
             }
         },
 
@@ -396,7 +414,7 @@
 
             "length": function (ei, v, p)
             {
-                var range = p.split("-");
+                var range = p.split(" ");
 
                 //如果长度设置为 length:6 这样的格式
                 if (range.length == 1) range[1] = range[0];
@@ -469,9 +487,18 @@
             "uint": function (ei, v, p)
             {
                 v = parseInt(v);
-                p = parseInt(p);
 
-                if (isNaN(v) || isNaN(p) || v < p || v < 0)
+                var range = p.split(" ");
+
+                if (range.length == 1)
+                {
+                    range[1] = 99999999999999;
+                }
+
+                range[0] = parseInt(range[0]);
+                range[1] = parseInt(range[1]);
+
+                if (isNaN(v) || isNaN(range[0]) || isNaN(range[1]) || v < range[0] || v > range[1] || v < 0)
                     return ei._error("uint");
                 else
                     return ei._success_rule("uint");
@@ -488,6 +515,7 @@
 
 })(jQuery, window, document);
 
+//easytip
 (function ($, window, document, undefined)
 {
     var themes = {
@@ -520,6 +548,12 @@
     var _easytip = function (ele, opt)
     {
         this.parent = ele;
+
+        if (0 == this.parent.length)
+        {
+            throw new Error("easytip's is null !");
+        }
+
         this.defaults = {
             left: 0, top: 0,
             position: "right",
