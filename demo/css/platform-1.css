@@ -21,6 +21,11 @@ body {
     margin: 0;
 }
 
+ul {
+    margin: 0;
+    padding: 0;
+}
+
 /* HTML5 display definitions
    ========================================================================== */
 
@@ -441,24 +446,82 @@ th {
     clear: both;
 }
 
-html{font-size:16px; font-family:"微软雅黑","黑体";}
-body{ background-color:#eee;text-align:center;}
-.page{width:1000px; margin:0 auto; padding-top:80px;  }
+html {
+    font-size: 16px;
+    font-family: "微软雅黑", "黑体";
+}
 
-.img-welcome{ margin:128px auto 0 auto;}
+body {
+    background-color: #eee;
+    text-align: center;
+}
 
-.form-div{background-color:rgba(255,255,255,0.27); border-radius:10px; border:1px solid #aaa; width:424px; margin:0 auto;padding:30px 0 20px 0px; font-size:12px;box-shadow: inset 0px 0px 10px rgba(255,255,255,0.5),0px 0px 15px rgba(75,75,75,0.3); text-align:left;}
+.page {
+    width: 1000px;
+    margin: 0 auto;
+    padding-top: 80px;
+}
 
-.form-div input[type="text"], .form-div input[type="password"], .form-div input[type="email"]{width:268px; margin:10px; line-height:20px; font-size:16px;}
-.form-div input[type="checkbox"]{margin:20px 0 20px 10px;}
-.form-div input[type="button"],.form-div input[type="submit"]{margin:10px 20px 0 0;}
+.img-welcome {
+    margin: 128px auto 0 auto;
+}
 
-.form-div table{ margin:0 auto; text-align:right; color:rgba(64,64,64,1.00);}
-.form-div table img{ vertical-align:middle; margin:0 0 5px 0;}
-.footer{color:rgba(64,64,64,1.00); font-size: 12px; margin-top: 30px;}
-.form-div .buttons{float:right;}
+.form-div {
+    background-color: rgba(255, 255, 255, 0.27);
+    border-radius: 10px;
+    border: 1px solid #aaa;
+    width: 424px;
+    margin: 0 auto;
+    padding: 30px 0 20px 0px;
+    font-size: 12px;
+    box-shadow: inset 0px 0px 10px rgba(255, 255, 255, 0.5), 0px 0px 15px rgba(75, 75, 75, 0.3);
+    text-align: left;
+}
 
-.protocol{ padding:0px 20px 20px 20px; text-align:left; background-color:rgba(255,255,255,0.5);border-radius:7px; height:400px;overflow:auto;}
+.form-div input[type="text"], .form-div input[type="password"], .form-div input[type="email"] {
+    width: 268px;
+    margin: 10px;
+    line-height: 20px;
+    font-size: 16px;
+}
+
+.form-div input[type="checkbox"] {
+    margin: 20px 0 20px 10px;
+}
+
+.form-div input[type="button"], .form-div input[type="submit"] {
+    margin: 10px 20px 0 0;
+}
+
+.form-div table {
+    margin: 0 auto;
+    text-align: right;
+    color: rgba(64, 64, 64, 1.00);
+}
+
+.form-div table img {
+    vertical-align: middle;
+    margin: 0 0 5px 0;
+}
+
+.footer {
+    color: rgba(64, 64, 64, 1.00);
+    font-size: 12px;
+    margin-top: 30px;
+}
+
+.form-div .buttons {
+    float: right;
+}
+
+.protocol {
+    padding: 0px 20px 20px 20px;
+    text-align: left;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 7px;
+    height: 400px;
+    overflow: auto;
+}
 
 .input-text {
     padding: 10px;
@@ -478,7 +541,7 @@ input[type="text"], input[type="password"], input[type="email"] {
 
 input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
     border: 1px solid #50afeb;
-	outline: none;
+    outline: none;
 }
 
 input[type="button"], input[type="submit"] {
@@ -489,8 +552,8 @@ input[type="button"], input[type="submit"] {
     overflow: hidden;
     min-width: 80px;
     border: none;
-	color: #FFF;
-	box-shadow: 1px 1px 1px rgba(75,75,75,0.3);
+    color: #FFF;
+    box-shadow: 1px 1px 1px rgba(75, 75, 75, 0.3);
 }
 
 input[type="button"]:hover, input[type="submit"]:hover {
@@ -501,4 +564,40 @@ input[type="button"]:hover, input[type="submit"]:hover {
 input[type="button"]:active, input[type="submit"]:active {
     background-color: #5a88c8;
     /*border: 1px solid #777;*/
+}
+
+/* 说明块*/
+.source-div {
+    margin: 50px 0;
+    padding: 30px;
+    text-align: left;
+    background-color: #fff;
+    border-radius: 3px;
+    border: 1px solid #aaa;
+    box-shadow: inset 0px 0px 10px rgba(255, 255, 255, 0.5), 0px 0px 15px rgba(75, 75, 75, 0.3);
+    font-size: 12px;
+}
+
+h3
+{
+    margin: 0 0 30px 0;
+    font-size: 24px;
+    font-weight: normal;
+}
+
+.option
+{
+    width: 97%;
+    line-height: 40px;
+    margin: auto;
+    text-align: left;
+}
+
+.option thead{
+    border-bottom: 1px solid #eee;
+    color: #777;
+}
+
+.option th{
+    font-weight: normal;
 }

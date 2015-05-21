@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="css/platform-1.css">
     <link rel="stylesheet" href="../easyform/easyform.css">
 
+    <link rel="stylesheet" href="css/tab.css">
+
+    <script src="js/prefixfree.min.js"></script>
+
     <script src="js/jquery-2.1.0.min.js"></script>
     <script src="../easyform/easyform.js"></script>
 
@@ -21,7 +25,8 @@
     var WIDTH = $(window).innerWidth();
     var HEIGHT = $(window).innerHeight();
 
-    $(document).ready(function () {
+    $(document).ready(function ()
+    {
 
         $(".page").css("height", HEIGHT + "px");
 
@@ -36,14 +41,16 @@
             <table>
                 <tr>
                     <td>用户名</td>
-                    <td><input name="uid" type="text" id="uid" data-easyform="length:4-16;char-normal;real-time;ajax:ajax_demo(1)"
+                    <td><input name="uid" type="text" id="uid"
+                               data-easyform="length:4-16;char-normal;real-time;ajax:ajax_demo(1)"
                                data-message="用户名必须为4—16位的英文字母或数字"
-                               data-easytip="position:top;" data-ajax-message="用户名已存在!">
+                               data-easytip="position:top;" data-message-ajax="用户名已存在!">
                     </td>
                 </tr>
                 <tr>
                     <td>密码</td>
-                    <td><input name="psw1" type="password" id="psw1" data-easyform="length:6 16;" data-message="密码必须为6—16位"
+                    <td><input name="psw1" type="password" id="psw1" data-easyform="length:6 16;"
+                               data-message="密码必须为6—16位"
                                data-easytip="theme:easy-blue;"></td>
                 </tr>
                 <tr>
@@ -53,7 +60,8 @@
                 </tr>
                 <tr>
                     <td>email</td>
-                    <td><input name="email" type="text" id="email" data-easyform="email;real-time;easytip:false;" data-message="Email格式要正确"
+                    <td><input name="email" type="text" id="email" data-easyform="email;real-time;easytip:false;"
+                               data-message="Email格式要正确"
                                data-easytip="theme:easy-blue;"></td>
                 </tr>
                 <tr>
@@ -72,19 +80,149 @@
         </form>
     </div>
 
+    <div class="source-div">
+
+        <h3>初始化</h3>
+
+        <input id="tab5" type="radio" name="tabs2" checked class="tab-input">
+        <label for="tab5">说明</label>
+
+        <input id="tab6" type="radio" name="tabs2" checked class="tab-input">
+        <label for="tab6">代码</label>
+
+        <input id="tab7" type="radio" name="tabs2" checked class="tab-input">
+        <label for="tab7">配置</label>
+
+
+        <section id="content5">
+            <p>
+                你可以只用一行代码，0配置的初始化一个easyform.
+            </p>
+
+            <p>
+                $("#form").easyform();
+            </p>
+        </section>
+
+        <section id="content6">
+            <p>
+                $("#form").easyform({easytip:true;});
+            </p>
+        </section>
+
+        <section id="content7" style="text-align: center;">
+
+            <table class="option">
+                <thead>
+                <tr>
+                    <th>选项</th>
+                    <th>说明</th>
+                    <th>可选值</th>
+                    <th>默认值</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>easytip</td>
+                    <td>是否显示easytip</td>
+                    <td>true/false</td>
+                    <td>true</td>
+                </tr>
+                </tbody>
+            </table>
+
+        </section>
+
+    </div>
+
+    <div class="source-div">
+
+        <h3>验证规则</h3>
+
+        <input id="tab1" type="radio" name="tabs" checked class="tab-input">
+        <label for="tab1">说明</label>
+
+        <input id="tab2" type="radio" name="tabs" checked class="tab-input">
+        <label for="tab2">代码</label>
+
+        <input id="tab3" type="radio" name="tabs" checked class="tab-input">
+        <label for="tab3">配置</label>
+
+        <input id="tab4" type="radio" name="tabs" checked class="tab-input">
+        <label for="tab4">Drupal</label>
+
+        <section id="content1">
+            <p>
+                该控件目前只支持 input 的 text 类型的验证。其他类型的控件需要手动添加验证规则。
+            </p>
+        </section>
+
+        <section id="content2">
+
+                <xmp>
+<input name="uid" type="text" id="uid"
+    data-easyform="length:4-16;char-normal;"
+    data-message="用户名必须为4—16位的英文字母或数字"
+    data-easytip="position:top;">
+                </xmp>
+
+
+        </section>
+
+        <section id="content3">
+            <p>
+                Bacon ipsum dolor sit amet beef venison beef ribs kielbasa. Sausage pig leberkas, t-bone sirloin
+                shoulder
+                bresaola. Frankfurter rump porchetta ham. Pork belly prosciutto brisket meatloaf short ribs.
+            </p>
+
+            <p>
+                Brisket meatball turkey short loin boudin leberkas meatloaf chuck andouille pork loin pastrami spare
+                ribs
+                pancetta rump. Frankfurter corned beef beef tenderloin short loin meatloaf swine ground round venison.
+            </p>
+        </section>
+
+        <section id="content4">
+            <p>
+                Bacon ipsum dolor sit amet landjaeger sausage brisket, jerky drumstick fatback boudin ball tip
+                turducken.
+                Pork belly meatball t-bone bresaola tail filet mignon kevin turkey ribeye shank flank doner cow kielbasa
+                shankle. Pig swine chicken hamburger, tenderloin turkey rump ball tip sirloin frankfurter meatloaf
+                boudin
+                brisket ham hock. Hamburger venison brisket tri-tip andouille pork belly ball tip short ribs biltong
+                meatball chuck. Pork chop ribeye tail short ribs, beef hamburger meatball kielbasa rump corned beef
+                porchetta landjaeger flank. Doner rump frankfurter meatball meatloaf, cow kevin pork pork loin venison
+                fatback spare ribs salami beef ribs.
+            </p>
+
+            <p>
+                Jerky jowl pork chop tongue, kielbasa shank venison. Capicola shank pig ribeye leberkas filet mignon
+                brisket
+                beef kevin tenderloin porchetta. Capicola fatback venison shank kielbasa, drumstick ribeye landjaeger
+                beef
+                kevin tail meatball pastrami prosciutto pancetta. Tail kevin spare ribs ground round ham ham hock
+                brisket
+                shoulder. Corned beef tri-tip leberkas flank sausage ham hock filet mignon beef ribs pancetta turkey.
+            </p>
+        </section>
+
+    </div>
+
 
 </div>
 
 <script>
 
 
-    $(document).ready(function () {
+    $(document).ready(function ()
+    {
         $('#reg-form').easyform();
     });
 
     function ajax_demo(p)
     {
-         $("#uid").trigger("easyinput-ajax", false);
+        $("#uid").trigger("easyinput-ajax", false);
     }
 
 
