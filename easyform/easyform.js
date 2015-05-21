@@ -49,9 +49,98 @@
  * */
 ;
 
-function aaa()
-{
+function easy_load_options(id, name) {
+    var options = $("#" + id).data(name);
 
+    //将字符串用；分割
+    options = (!!options ? options.split(";") : undefined);
+
+    if (!!options) {
+        var data = Object();
+        var index;
+        for (index in options) {
+            var temps = options[index];
+            var p = temps.indexOf(":");
+
+            var temp = [];
+            if (-1 == p) {
+                temp[0] = temps;
+                temp[1] = "";
+            }
+            else {
+                temp[0] = temps.substring(0, p);
+                temp[1] = temps.substring(p + 1);
+            }
+
+            if (temp[0].length > 0)
+                data[temp[0]] = temp[1];
+        }
+    }
+
+    return data;
+}
+
+function get_js_path(jsFileName) {
+    var e = {};
+    var htmlPath = "";
+    var jsPath = "";
+    if (document.location.protocol == 'file:') {
+        e.BasePath = unescape(document.location.pathname.substr(1));
+        e.BasePath = e.BasePath.replace(/\\/gi, '/');
+        e.BasePath = 'file://' + e.BasePath.substring(0, e.BasePath.lastIndexOf('/') + 1);
+        e.FullBasePath = e.BasePath;
+    }
+    else {
+        e.BasePath = document.location.pathname.substring(0, document.location.pathname.lastIndexOf('/') + 1);
+        e.FullBasePath = document.location.protocol + '//' + document.location.host + e.BasePath;
+    }
+
+    htmlPath = e.FullBasePath;
+    var scriptTag = document.getElementsByTagName("script");
+    for (var i = 0; i < scriptTag.length; i++) {
+        if (scriptTag[i].src.lastIndexOf(jsFileName) >= 0) {
+            var src = scriptTag[i].src.replace(/\\/gi, '/');//把\转换为/
+            if (src.toLowerCase().indexOf("file://") == 0) {//http全路径形式 file://
+                var _temp = src.substring(0, src.lastIndexOf('/') + 1);
+                jsPath = _temp;
+                //alert("file://")
+            }
+            else if (src.toLowerCase().indexOf("http://") == 0) {//http全路径形式 http://
+                var _temp = src.substring(0, src.lastIndexOf('/') + 1);
+                jsPath = _temp;
+                //alert("http://")
+            }
+            else if (src.toLowerCase().indexOf("https://") == 0) {//http全路径形式 https://
+                var _temp = src.substring(0, src.lastIndexOf('/') + 1);
+                jsPath = _temp;
+                //alert("https://")
+            }
+            else if (src.toLowerCase().indexOf("../") == 0) {//相对路径形式 ../
+                jsPath = htmlPath + src.substring(0, src.lastIndexOf('/') + 1);
+                //alert("../")
+            }
+            else if (src.toLowerCase().indexOf("./") == 0) {//相对路径形式 ./
+                jsPath = htmlPath + src.substring(0, src.lastIndexOf('/') + 1);
+                //alert("./")
+            } else if (src.toLowerCase().indexOf("/") == 0) {//相对路径形式 /,只有采用http访问时有效
+                if (document.location.protocol == 'http:' || document.location.protocol == 'https:') {
+                    var _temp = document.location.protocol + "//" + document.location.host + src.substring(0, src.lastIndexOf('/') + 1);
+                    jsPath = _temp;
+                }
+                //alert("/")
+            }
+            else if (src.toLowerCase().search(/^([a-z]{1}):/) >= 0) {//盘符形式 c:
+                var _temp = src.substring(0, src.lastIndexOf('/') + 1);
+                jsPath = _temp;
+                //alert("^([a-z]+):")
+            }
+            else {//同级形式
+                jsPath = htmlPath;
+            }
+        }
+    }
+
+    return jsPath;
 }
 
 //easyform
@@ -196,21 +285,31 @@ function aaa()
         }
 
         this.rules = [];
-        this.message = $(input).attr("message");
-        this.message = (!!this.message ? this.message : "格式错误!");
 
         //事件
         this.error = null;
         this.success = null;
 
         this.defaults = {
-            easytip: true   //是否显示easytip
+            easytip: "true"   //是否显示easytip
         };
-        this.options = $.extend({}, this.defaults, opt);
+
+        this.tip = null;    //关联的tip
+
+        var data = easy_load_options(input[0].id, "easyform");
+
+        //处理data-easyform中的配置属性
+        var o = Object();
+        for (var index in data) {
+            if (index == "easytip") {
+                o["easytip"] = data[index];
+            }
+        }
+        this.options = $.extend({}, this.defaults, opt, o);
 
         this.counter = 0;   //计数器，记录已经有多少个条件成功
 
-        this.is_error = false;
+        this.is_error = false;      //错误标志
     };
 
     //单个input的检查器
@@ -218,11 +317,14 @@ function aaa()
 
         init: function () {
             //初始化easytip
-            this._init_easytip();
+            if ("true" === this.options.easytip) {
+                this.tip = $(this.input).easytip();
+            }
+
+            var easyinput = this;
+            var rule = this.input.attr("data-easyform");
 
             //是否实时检查
-            var easyinput = this;
-            var rule = this.input.attr("easyform");
             if (!!rule && -1 != rule.indexOf("real-time")) {
                 this.input.blur(function () {
                     easyinput.validation();
@@ -232,20 +334,13 @@ function aaa()
             return this;
         },
 
-        //初始化easytip
-        _init_easytip: function () {
-            if (!!this.options.easytip) {
-                this.options.easytip = $(this.input).easytip();
-            }
-        },
-
         /**
          * 规则判断
          * */
         validation: function () {
             this.value = this.input.val();
             this.counter = 0;   //计数器清零
-            this.rule = this.input.attr("easyform");
+            this.rule = this.input.attr("data-easyform");
 
             this.is_error = false;
 
@@ -292,13 +387,17 @@ function aaa()
             if (!!this.error)
                 this.error(this.input, rule);
 
-            if (false == this.is_error) {
-                var msg = this.input.attr("message-" + rule);
+            if (false == this.is_error)
+            {
+                var msg = $(this.input).data("message-" + rule);
 
-                msg = !msg ? this.message : msg;
+                if( !msg  )
+                    msg = $(this.input).data("message");
 
-                if (!!this.options.easytip) {
-                    this.options.easytip.show(msg);
+                msg = !msg ? "格式错误" : msg;
+
+                if ("true" === this.options.easytip) {
+                    this.tip.show(msg);
                 }
 
                 this.is_error = true;
@@ -511,14 +610,10 @@ function aaa()
             style: {}
         };
 
-        aaa();
-
         //从控件的 data-easytip中读取配置信息
-        var data = this._load_data();
+        var data = easy_load_options(ele[0].id, "easytip");
 
         this.options = $.extend({}, this.defaults, opt, data);
-
-        this.padding = 100;
 
         this.id = "easytip-div-main" + ele[0].id;
     };
@@ -560,33 +655,6 @@ function aaa()
             }
 
             return this;
-        },
-
-        //初始化easytip
-        _load_data: function () {
-
-            var tipoptions = $(this.parent).data("easytip");
-
-            tipoptions = (!!tipoptions ? tipoptions.split(";") : undefined);
-
-            if (!!tipoptions) {
-                var options = Object();
-                var index;
-                for (index in tipoptions) {
-                    var temps = tipoptions[index];
-                    var p = temps.indexOf(":");
-
-                    if (-1 == p)continue;
-
-                    var temp = [];
-                    temp[0] = temps.substring(0, p);
-                    temp[1] = temps.substring(p + 1);
-
-                    options[temp[0]] = temp[1];
-                }
-            }
-
-            return options;
         },
 
         _size: function () {
@@ -663,7 +731,8 @@ function aaa()
             switch (this.options.position) {
                 case "top":
 
-                    tip.css("left", offset.left - this.padding);
+                    //tip.css("left", offset.left - this.padding);
+                    tip.css("left", offset.left);
                     tip.css("top", offset.top - tip.outerHeight() - arrow.outerHeight() / 2);
                     this.options.arrow = "bottom";
 
@@ -679,7 +748,8 @@ function aaa()
 
                 case "bottom":
 
-                    tip.css("left", offset.left - this.padding);
+                    //tip.css("left", offset.left - this.padding);
+                    tip.css("left", offset.left);
                     tip.css("top", offset.top + size.height + arrow.outerHeight() / 2);
                     this.options.arrow = "top";
 
@@ -794,7 +864,7 @@ function aaa()
         this.last_file = null;
 
         this.defaults = {
-            "default": "http://localhost/wz/admin/resource/js/plugins/easyform/none.png"
+            "default": get_js_path("easyform.js") + "none.png"
         };
 
         this.options = $.extend({}, this.defaults, opt);
@@ -874,6 +944,7 @@ function aaa()
 
             this.last_file = imgobj.attr("src");
 
+            //TODO 只有IE下能判断文件类型
             if (file.files && file.files[0])        //Firefox 下获取图片本地路径
             {
                 img_file = window.URL.createObjectURL(file.files[0]);
@@ -890,7 +961,7 @@ function aaa()
                     imgobj[0].filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = img_file;
                 }
                 catch (e) {
-                    alert("The file is not image! Please change another one!");
+                    alert("请选择一个图片文件!");
                     return false;
                 }
 
