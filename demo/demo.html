@@ -12,8 +12,6 @@
 
     <link rel="stylesheet" href="css/tab.css">
 
-    <script src="js/prefixfree.min.js"></script>
-
     <script src="js/jquery-2.1.0.min.js"></script>
     <script src="../easyform/easyform.js"></script>
 
@@ -27,14 +25,13 @@
 
     $(document).ready(function ()
     {
-
         $(".page").css("height", HEIGHT + "px");
-
     });
 
 </script>
 
 <div class="page">
+
 <div class="form-div">
     <form id="reg-form" action="" method="post">
 
@@ -87,20 +84,22 @@
     </form>
 </div>
 
+<!--简介-->
 <div class="source-div">
 
     <h3>简介</h3>
 
-    <input id="tab5" type="radio" name="tabs2" checked class="tab-input">
-    <label for="tab5">说明</label>
+    <input id="tab1" type="radio" name="tabs2" checked class="tab-input">
+    <label for="tab1">说明</label>
 
-    <input id="tab6" type="radio" name="tabs2" checked class="tab-input">
-    <label for="tab6">初始化</label>
+    <input id="tab2" type="radio" name="tabs2" class="tab-input">
+    <label for="tab2">初始化</label>
 
-    <input id="tab7" type="radio" name="tabs2" checked class="tab-input">
-    <label for="tab7">配置</label>
+    <input id="tab3" type="radio" name="tabs2" class="tab-input">
+    <label for="tab3">兼容性</label>
 
-    <section id="content5">
+
+    <section id="content1">
         <p>
             easyform 是一组jQuery插件，包括easyfrom，easytip，easyimagefile，easylanguage。
         </p>
@@ -114,33 +113,238 @@
         </p>
     </section>
 
-    <section id="content6">
+    <section id="content2">
         <p>
             首先记得加载这么几个文件，把他们放在合适的位置：
         </p>
 
-        <p>
-            &lt;link rel="stylesheet" href="../easyform/easyform.css"&gt;<br>
-            &lt;script src="js/jquery-2.1.0.min.js"&gt;&lt;/script&gt;<br>
-            &lt;script src="../easyform/easyform.js"&gt;&lt;/script&gt;<br>
+        <p class="code">
+            &lt;<span class="keyword">link</span> <span class="attr">rel</span>=<span class="value">"stylesheet"</span>
+            <span class="attr">href</span>=<span class="value">"../easyform/easyform.css"</span>&gt;<br>
+            &lt;<span class="keyword">script</span> <span class="attr">src</span>=<span class="value">"js/jquery-2.1.0.min.js"</span>&gt;&lt;/<span
+                class="keyword">script</span>&gt;<br>
+            &lt;<span class="keyword">script</span> <span class="attr">src</span>=<span class="value">"../easyform/easyform.js"</span>&gt;&lt;/<span
+                class="keyword">script</span>&gt;<br>
         </p>
 
-        <p>其中，jquery-2.1.0.min.js是jQuery，随便选个流行的版本就行。不要低于1.7。</p>
+        <p>其中，jquery-2.1.0.min.js是jQuery，随便选个流行的版本就行。不要低于1.7。顺序别颠倒，因为easyform依赖于jquery，所以要先加载jquery。</p>
 
         <p>
             最后，在document的ready里加上
         </p>
 
-        <p>
+        <p class="code">
             $("#form").easyform();
         </p>
 
     </section>
 
-    <section id="content7" style="text-align: center;">
+    <section id="content3">
         <p>
-            $("#form").easyform({easytip:true;});
+            兼容各种主流浏览器，只要支持HTML5就可以了。
         </p>
+
+    </section>
+
+
+</div>
+
+<!--easyform-->
+<div class="source-div">
+
+    <h3>easyform</h3>
+
+    <input id="tab6" type="radio" name="tabs" checked class="tab-input">
+    <label for="tab6">说明</label>
+
+    <input id="tab7" type="radio" name="tabs" class="tab-input">
+    <label for="tab7">规则定义</label>
+
+    <input id="tab8" type="radio" name="tabs" class="tab-input">
+    <label for="tab8">规则列表</label>
+
+    <input id="tab9" type="radio" name="tabs" class="tab-input">
+    <label for="tab9">属性</label>
+
+    <input id="tab10" type="radio" name="tabs" class="tab-input">
+    <label for="tab10">版本记录</label>
+
+    <section id="content6">
+        <p>
+            该控件目前只支持 input 的 text 类型的验证。其他类型的控件需要手动添加验证规则。
+        </p>
+
+        <p>easyform包含两个类，easyform和easyinput。easyinput负责搞定单个对象的规则验证，很显然，easyform负责调用easyinput。</p>
+    </section>
+
+    <section id="content7">
+        <p>
+            你可以这样定义一个input，并且为它添加一些规则和提示信息。
+        </p>
+
+        <p class="code">
+            &lt;<span class="keyword">input</span> <span class="attr">name</span>=<span class="value">"uid"</span>
+            <span class="attr">type</span>=<span class="value">"text"</span> <span class="attr">id</span>=<span
+                class="value">"uid"</span>
+            <span class="attr">data-easyform</span>=<span class="value">"length:4 16;char-normal;"</span>
+            <span class="attr">data-message</span>=<span class="value">"用户名必须为4—16位的英文字母或数字"</span>
+            <span class="attr">data-easytip</span>=<span class="value">"position:top;"</span>&gt;
+        </p>
+
+        <p>
+            data-easyform 属性后面可以写上你所需要的规则，用半角的分号连接。语法上有些像css。
+        </p>
+
+        <p>
+            data-message 属性是一个默认的提示信息，如果你连这个都不写，那么遇到错误时，会默认提示“格式错误”。你如果需要一个更好的提示信息，写在这里就可以。
+        </p>
+
+        <p>
+            data-easytip 这个属性是easytip的配置属性，可以不写，这样easytip就会按照默认的样式和行为初始化。
+        </p>
+
+    </section>
+
+    <section id="content8" style="text-align: center;">
+        <table class="option">
+            <thead>
+            <tr>
+                <th>规则名称</th>
+                <th width="400">说明</th>
+                <th width="40">类型</th>
+                <th>默认值</th>
+                <th>示例</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>null</td>
+                <td>是否可为空</td>
+                <td>无</td>
+                <td>无</td>
+                <td>data-easyform="null;"</td>
+            </tr>
+            <tr>
+                <td>email</td>
+                <td>Email地址</td>
+                <td>无</td>
+                <td>默认所有值都是必填项</td>
+                <td>data-easyform="email;"</td>
+            </tr>
+            <tr>
+                <td>char-normal</td>
+                <td>只能为英文、数字、下划线</td>
+                <td>无</td>
+                <td>无</td>
+                <td>data-easyform="char-normal;"</td>
+            </tr>
+            <tr>
+                <td>char-chinese</td>
+                <td>只能为中文、英文、数字、下划线、中文标点符号</td>
+                <td>无</td>
+                <td>无</td>
+                <td>data-easyform="char-chinese;"</td>
+            </tr>
+            <tr>
+                <td>char-english</td>
+                <td>只能为英文、数字、下划线、英文标点符号</td>
+                <td>无</td>
+                <td>无</td>
+                <td>data-easyform="char-english;"</td>
+            </tr>
+            <tr>
+                <td>length</td>
+                <td>长度限制，可以设置最大值和最小值，如果仅设置了一个值，则长度必须为该长度。</td>
+                <td>int</td>
+                <td>无</td>
+                <td>data-easyform="length:1 10;"<br>data-easyform="length:6;"</td>
+            </tr>
+            <tr>
+                <td>equal</td>
+                <td>是否与某值相等，可以用来判断密码确认。</td>
+                <td>string</td>
+                <td>无</td>
+                <td>data-easyform="equal:#psw1;"</td>
+            </tr>
+            <tr>
+                <td>ajax</td>
+                <td>ajax验证，异步。需要通过easyform-ajax事件来返回验证结果。</td>
+                <td>string</td>
+                <td>无</td>
+                <td>data-easyform="ajax:fun(1);"</td>
+            </tr>
+            <tr>
+                <td>real-time</td>
+                <td>实时检查。如果设置实时检查，则对象每次失去焦点时就会验证一次。</td>
+                <td>无</td>
+                <td>无</td>
+                <td>data-easyform="real-time;"</td>
+            </tr>
+            <tr>
+                <td>date</td>
+                <td>日期格式 yyyy-mm-dd</td>
+                <td>无</td>
+                <td>无</td>
+                <td>data-easyform="date;"</td>
+            </tr>
+            <tr>
+                <td>time</td>
+                <td>时间格式 hh:mm:ss</td>
+                <td>无</td>
+                <td>无</td>
+                <td>data-easyform="time;"</td>
+            </tr>
+            <tr>
+                <td>datetime</td>
+                <td>日期时间格式 yyyy-mm-dd hh:mm:ss</td>
+                <td>无</td>
+                <td>无</td>
+                <td>data-easyform="datetime;"</td>
+            </tr>
+            <tr>
+                <td>money</td>
+                <td>金额格式，等同于float:10 2</td>
+                <td>无</td>
+                <td>无</td>
+                <td>data-easyform="money;"</td>
+            </tr>
+            <tr>
+                <td>uint</td>
+                <td>无符号正整数 , 参数为起始值和最大值</td>
+                <td>int</td>
+                <td>默认最大值999999999999999</td>
+                <td>data-easyform="uint:1 100;"</td>
+            </tr>
+            <tr>
+                <td>number</td>
+                <td>数字字符串，只能是数字，不含小数点</td>
+                <td>无</td>
+                <td>无</td>
+                <td>data-easyform="number;"</td>
+            </tr>
+            <tr>
+                <td>float</td>
+                <td>浮点数</td>
+                <td>int</td>
+                <td>无</td>
+                <td>data-easyform="float:7 2;"</td>
+            </tr>
+            <tr>
+                <td>regex</td>
+                <td>自定义正则表达式</td>
+                <td>string</td>
+                <td>无</td>
+                <td>data-easyform="^(\\d{4})-(\\d{2})-(\\d{2})$;"</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="content9" >
+        <p>
+            easyform的属性可以在html里或者js中配置，两种方式选择一种即可。
+        </p>
+        <div style="text-align: center;">
         <table class="option">
             <thead>
             <tr>
@@ -148,6 +352,8 @@
                 <th>说明</th>
                 <th>可选值</th>
                 <th>默认值</th>
+                <th>js示例</th>
+                <th>html示例</th>
             </tr>
             </thead>
             <tbody>
@@ -156,93 +362,82 @@
                 <td>是否显示easytip</td>
                 <td>true/false</td>
                 <td>true</td>
+                <td>$("#form").easyform({easytip:true;});</td>
+                <td>data-easyform="easytip:false;;"</td>
             </tr>
             </tbody>
-        </table>
+        </table></div>
+
+    </section>
+
+    <section id="content10">
+
+        <ul>
+            <li>v1.2 2015-5-24 修改了很多bug，对代码进行了重构。属性定义修改成了html5的标准命名。所以1.2版本不兼容过去的老版本。不过无所谓了，你们也找不到老版本。</li>
+            <li>v1.1 2014-11-21 支持ajax异步验证。修正了若干bug。</li>
+            <li>v1.0 2014-11-5 第一版完成。</li>
+        </ul>
 
     </section>
 
 </div>
 
+<!--例子-->
 <div class="source-div">
 
-    <h3>easyform</h3>
+    <h3>例子</h3>
 
-    <input id="tab1" type="radio" name="tabs" checked class="tab-input">
-    <label for="tab1">说明</label>
+    <input id="tab14" type="radio" name="tabs3" checked class="tab-input">
+    <label for="tab14">ajax</label>
 
-    <input id="tab2" type="radio" name="tabs" checked class="tab-input">
-    <label for="tab2">初始化</label>
+    <input id="tab15" type="radio" name="tabs3" class="tab-input">
+    <label for="tab15">正则表达式</label>
 
-    <input id="tab3" type="radio" name="tabs" checked class="tab-input">
-    <label for="tab3">示例</label>
-
-    <input id="tab4" type="radio" name="tabs" checked class="tab-input">
-    <label for="tab4">手册</label>
-
-    <section id="content1">
+    <section id="content14">
         <p>
-            该控件目前只支持 input 的 text 类型的验证。其他类型的控件需要手动添加验证规则。
-        </p>
-
-        <p>easyform包含两个类，easyform和easyinput。easyinput负责搞定单个对象的规则验证，很显然，easyform负责调用easyinput。</p>
-    </section>
-
-    <section id="content2">
-
-
-        &lt;input name="uid" type="text" id="uid"
-        data-easyform="length:4-16;char-normal;"
-        data-message="用户名必须为4—16位的英文字母或数字"
-        data-easytip="position:top;"&gt;
-
-    </section>
-
-    <section id="content3">
-        <p>
-            Bacon ipsum dolor sit amet beef venison beef ribs kielbasa. Sausage pig leberkas, t-bone sirloin
-            shoulder
-            bresaola. Frankfurter rump porchetta ham. Pork belly prosciutto brisket meatloaf short ribs.
+            easyform 是一组jQuery插件，包括easyfrom，easytip，easyimagefile，easylanguage。
         </p>
 
         <p>
-            Brisket meatball turkey short loin boudin leberkas meatloaf chuck andouille pork loin pastrami spare
-            ribs
-            pancetta rump. Frankfurter corned beef beef tenderloin short loin meatloaf swine ground round venison.
+            easyform是表单验证插件，支持复杂的表单验证规则，并且使用简单。甚至可以做到1行js搞定全部。
+        </p>
+
+        <p>
+            表单验证，就是这么简单！
         </p>
     </section>
 
-    <section id="content4">
+    <section id="content15">
         <p>
-            Bacon ipsum dolor sit amet landjaeger sausage brisket, jerky drumstick fatback boudin ball tip
-            turducken.
-            Pork belly meatball t-bone bresaola tail filet mignon kevin turkey ribeye shank flank doner cow kielbasa
-            shankle. Pig swine chicken hamburger, tenderloin turkey rump ball tip sirloin frankfurter meatloaf
-            boudin
-            brisket ham hock. Hamburger venison brisket tri-tip andouille pork belly ball tip short ribs biltong
-            meatball chuck. Pork chop ribeye tail short ribs, beef hamburger meatball kielbasa rump corned beef
-            porchetta landjaeger flank. Doner rump frankfurter meatball meatloaf, cow kevin pork pork loin venison
-            fatback spare ribs salami beef ribs.
+            首先记得加载这么几个文件，把他们放在合适的位置：
         </p>
 
-        <p>
-            Jerky jowl pork chop tongue, kielbasa shank venison. Capicola shank pig ribeye leberkas filet mignon
-            brisket
-            beef kevin tenderloin porchetta. Capicola fatback venison shank kielbasa, drumstick ribeye landjaeger
-            beef
-            kevin tail meatball pastrami prosciutto pancetta. Tail kevin spare ribs ground round ham ham hock
-            brisket
-            shoulder. Corned beef tri-tip leberkas flank sausage ham hock filet mignon beef ribs pancetta turkey.
+        <p class="code">
+            &lt;<span class="keyword">link</span> <span class="attr">rel</span>=<span class="value">"stylesheet"</span>
+            <span class="attr">href</span>=<span class="value">"../easyform/easyform.css"</span>&gt;<br>
+            &lt;<span class="keyword">script</span> <span class="attr">src</span>=<span class="value">"js/jquery-2.1.0.min.js"</span>&gt;&lt;/<span
+                class="keyword">script</span>&gt;<br>
+            &lt;<span class="keyword">script</span> <span class="attr">src</span>=<span class="value">"../easyform/easyform.js"</span>&gt;&lt;/<span
+                class="keyword">script</span>&gt;<br>
         </p>
+
+        <p>其中，jquery-2.1.0.min.js是jQuery，随便选个流行的版本就行。不要低于1.7。顺序别颠倒，因为easyform依赖于jquery，所以要先加载jquery。</p>
+
+        <p>
+            最后，在document的ready里加上
+        </p>
+
+        <p class="code">
+            $("#form").easyform();
+        </p>
+
     </section>
 
 </div>
-
 
 </div>
 
 <script>
-
 
     $(document).ready(function ()
     {
@@ -251,10 +446,11 @@
 
     function ajax_demo(p)
     {
-        $("#uid").trigger("easyinput-ajax", false);
+        $("#uid").trigger("easyform-ajax", false);
     }
 
 
 </script>
+
 </body>
 </html>

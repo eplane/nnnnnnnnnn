@@ -588,7 +588,6 @@ h3
 .option
 {
     width: 97%;
-    line-height: 40px;
     margin: auto;
     text-align: left;
 }
@@ -596,8 +595,44 @@ h3
 .option thead{
     border-bottom: 1px solid #eee;
     color: #777;
+    line-height: 40px;
 }
 
 .option th{
     font-weight: normal;
+}
+
+.option td{
+    vertical-align: top;
+    padding: 5px;
+    line-height: 20px;
+}
+
+section p{
+    line-height: 20px;
+    text-indent:2em;
+}
+
+p.code
+{
+    text-indent:0;
+    padding-left: 3em;
+    color: #555555;
+    font-size: 12px;
+}
+
+p.code .keyword{
+    color:cadetblue;
+}
+
+p.code .attr{
+    color: cadetblue;
+}
+
+p.code .value{
+    color: blue;
+}
+
+section ul{line-height: 20px;
+    padding-left: 3em;
 }

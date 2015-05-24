@@ -21,6 +21,7 @@
  *      uint :1 100                 正整数 , 参数为起始值和最大值
  *      number              不限长度的数字字符串
  *      float:7 2
+ *      regex:"^(\\d{4})-(\\d{2})-(\\d{2}) (\\d{2}):(\\d{2}):(\\d{2})$"
  *
  *
  *  ------ requirement list ----------------------------------------------------
@@ -540,11 +541,11 @@ function get_js_path(jsFileName)
             "ajax": function (ei, v, p)
             {
                 // 为ajax处理注册自定义事件
-                // HTML中执行相关的AJAX时，需要发送事件 easyinput-ajax 来通知 easyinput
+                // HTML中执行相关的AJAX时，需要发送事件 easyform-ajax 来通知 easyinput
                 // 该事件只有一个bool参数，easyinput 会根据这个值判断ajax验证是否成功
-                ei.input.delegate("", "easyinput-ajax", function (e, p)
+                ei.input.delegate("", "easyform-ajax", function (e, p)
                 {
-                    ei.input.unbind("easyinput-ajax");
+                    ei.input.unbind("easyform-ajax");
 
                     if (false == p)
                         return ei._error("ajax");
@@ -581,7 +582,7 @@ function get_js_path(jsFileName)
 
             "money": function (ei, v, p)
             {
-                if (false == /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/.test(v))
+                if (false == /^([1-9][\d]{0,10}|0)(\.[\d]{1,2})?$/.test(v))
                     return ei._error("money");
                 else
                     return ei._success_rule("money");
@@ -599,10 +600,16 @@ function get_js_path(jsFileName)
             {
                 var range = p.split(" ");
 
-                //如果长度设置为 length:6 这样的格式
+                //如果长度设置为 float:6 这样的格式
                 //必须定义整数和小数的位数
                 if (range.length != 2)
+                {
                     return ei._error("float");
+                }
+                else if (range[0] + range[1] > 16)
+                {
+                    console.warn("您的" + ei.input.id + "float规则配置可能不正确!请保证整数位数+小数位数 < 16");
+                }
 
                 var pattern = new RegExp("^([1-9][\\d]{0," + range[0] + "}|0)(\\.[\\d]{1," + range[1] + "})?$");
 
@@ -617,11 +624,17 @@ function get_js_path(jsFileName)
             {
                 v = parseInt(v);
 
-                var range = p.split(" ");
+                var range = p.trim().split(" ");
+
+                if("" == p.trim())
+                {
+                    console.warn("您的" + ei.input.id + "uint规则，没有设置值域!");
+                    range[0] = 0;
+                }
 
                 if (range.length == 1)
                 {
-                    range[1] = 99999999999;
+                    range[1] = 999999999999999;
                 }
 
                 range[0] = parseInt(range[0]);
@@ -631,6 +644,17 @@ function get_js_path(jsFileName)
                     return ei._error("uint");
                 else
                     return ei._success_rule("uint");
+            },
+
+            "regex": function (ei, v, p)
+            {
+                var pattern = new RegExp(p);
+
+                if (false == pattern.test(v))
+                    return ei._error("regex");
+
+                else
+                    return ei._success_rule("regex");
             }
         }
     };
