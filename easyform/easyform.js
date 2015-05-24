@@ -3,7 +3,7 @@
  * Author : 李兰非
  * 2014-11-5
  * 用于表单验证
- * 只要在需要验证的控件上添加easyform属性即可，多个属性用[;]连接
+ * 只要在需要验证的控件上添加easyform属性即可，多个属性用[;]连接，语法类似css
  * 属性列表：
  *      null
  *      email
@@ -49,25 +49,35 @@
  * */
 ;
 
-function easy_load_options(id, name) {
+/**
+ * 读取一个控件的指定data属性，并通过：和；来分割成key/value值对
+ * @id string 控件id
+ * @name string 属性名称
+ **/
+function easy_load_options(id, name)
+{
     var options = $("#" + id).data(name);
 
     //将字符串用；分割
     options = (!!options ? options.split(";") : undefined);
 
-    if (!!options) {
+    if (!!options)
+    {
         var data = Object();
         var index;
-        for (index in options) {
+        for (index in options)
+        {
             var temps = options[index];
             var p = temps.indexOf(":");
 
             var temp = [];
-            if (-1 == p) {
+            if (-1 == p)
+            {
                 temp[0] = temps;
                 temp[1] = "";
             }
-            else {
+            else
+            {
                 temp[0] = temps.substring(0, p);
                 temp[1] = temps.substring(p + 1);
             }
@@ -80,61 +90,75 @@ function easy_load_options(id, name) {
     return data;
 }
 
-function get_js_path(jsFileName) {
+function get_js_path(jsFileName)
+{
     var e = {};
     var htmlPath = "";
     var jsPath = "";
-    if (document.location.protocol == 'file:') {
+    if (document.location.protocol == 'file:')
+    {
         e.BasePath = unescape(document.location.pathname.substr(1));
         e.BasePath = e.BasePath.replace(/\\/gi, '/');
         e.BasePath = 'file://' + e.BasePath.substring(0, e.BasePath.lastIndexOf('/') + 1);
         e.FullBasePath = e.BasePath;
     }
-    else {
+    else
+    {
         e.BasePath = document.location.pathname.substring(0, document.location.pathname.lastIndexOf('/') + 1);
         e.FullBasePath = document.location.protocol + '//' + document.location.host + e.BasePath;
     }
 
     htmlPath = e.FullBasePath;
     var scriptTag = document.getElementsByTagName("script");
-    for (var i = 0; i < scriptTag.length; i++) {
-        if (scriptTag[i].src.lastIndexOf(jsFileName) >= 0) {
+    for (var i = 0; i < scriptTag.length; i++)
+    {
+        if (scriptTag[i].src.lastIndexOf(jsFileName) >= 0)
+        {
             var src = scriptTag[i].src.replace(/\\/gi, '/');//把\转换为/
-            if (src.toLowerCase().indexOf("file://") == 0) {//http全路径形式 file://
+            if (src.toLowerCase().indexOf("file://") == 0)
+            {//http全路径形式 file://
                 var _temp = src.substring(0, src.lastIndexOf('/') + 1);
                 jsPath = _temp;
                 //alert("file://")
             }
-            else if (src.toLowerCase().indexOf("http://") == 0) {//http全路径形式 http://
+            else if (src.toLowerCase().indexOf("http://") == 0)
+            {//http全路径形式 http://
                 var _temp = src.substring(0, src.lastIndexOf('/') + 1);
                 jsPath = _temp;
                 //alert("http://")
             }
-            else if (src.toLowerCase().indexOf("https://") == 0) {//http全路径形式 https://
+            else if (src.toLowerCase().indexOf("https://") == 0)
+            {//http全路径形式 https://
                 var _temp = src.substring(0, src.lastIndexOf('/') + 1);
                 jsPath = _temp;
                 //alert("https://")
             }
-            else if (src.toLowerCase().indexOf("../") == 0) {//相对路径形式 ../
+            else if (src.toLowerCase().indexOf("../") == 0)
+            {//相对路径形式 ../
                 jsPath = htmlPath + src.substring(0, src.lastIndexOf('/') + 1);
                 //alert("../")
             }
-            else if (src.toLowerCase().indexOf("./") == 0) {//相对路径形式 ./
+            else if (src.toLowerCase().indexOf("./") == 0)
+            {//相对路径形式 ./
                 jsPath = htmlPath + src.substring(0, src.lastIndexOf('/') + 1);
                 //alert("./")
-            } else if (src.toLowerCase().indexOf("/") == 0) {//相对路径形式 /,只有采用http访问时有效
-                if (document.location.protocol == 'http:' || document.location.protocol == 'https:') {
+            } else if (src.toLowerCase().indexOf("/") == 0)
+            {//相对路径形式 /,只有采用http访问时有效
+                if (document.location.protocol == 'http:' || document.location.protocol == 'https:')
+                {
                     var _temp = document.location.protocol + "//" + document.location.host + src.substring(0, src.lastIndexOf('/') + 1);
                     jsPath = _temp;
                 }
                 //alert("/")
             }
-            else if (src.toLowerCase().search(/^([a-z]{1}):/) >= 0) {//盘符形式 c:
+            else if (src.toLowerCase().search(/^([a-z]{1}):/) >= 0)
+            {//盘符形式 c:
                 var _temp = src.substring(0, src.lastIndexOf('/') + 1);
                 jsPath = _temp;
                 //alert("^([a-z]+):")
             }
-            else {//同级形式
+            else
+            {//同级形式
                 jsPath = htmlPath;
             }
         }
@@ -144,14 +168,17 @@ function get_js_path(jsFileName) {
 }
 
 //easyform
-(function ($, window, document, undefined) {
+(function ($, window, document, undefined)
+{
     /*
      构造函数
      **/
-    var _easyform = function (ele, opt) {
+    var _easyform = function (ele, opt)
+    {
         this.form = ele;
 
-        if (0 == this.form.length && "form" != this.form[0].localName) {
+        if (0 == this.form.length && "form" != this.form[0].localName)
+        {
             throw new Error("easyform need a form !");
         }
 
@@ -176,18 +203,21 @@ function get_js_path(jsFileName) {
     //方法
     _easyform.prototype = {
 
-        init: function () {
+        init: function ()
+        {
             var ei = this;
             ei._load();
 
             //改写 submit 的属性，便于控制
             this.submit_button = this.form.find("input:submit");
-            this.submit_button.each(function () {
+            this.submit_button.each(function ()
+            {
                 var button = $(this);
                 button.attr("type", "button");
 
                 //提交前判断
-                button.click(function () {
+                button.click(function ()
+                {
                     ei.submit(true);
                 });
             });
@@ -195,16 +225,20 @@ function get_js_path(jsFileName) {
             return this;
         },
 
-        _load: function () {
+        _load: function ()
+        {
             this.inputs.splice(0, this.inputs.length);
             var ev = this;
 
-            this.form.find("input:visible").each(function (index, input) {
+            this.form.find("input:visible").each(function (index, input)
+            {
                 //排除 hidden、button、submit、checkbox、radio、file
-                if (input.type != "hidden" && input.type != "button" && input.type != "submit" && input.type != "checkbox" && input.type != "radio" && input.type != "file") {
+                if (input.type != "hidden" && input.type != "button" && input.type != "submit" && input.type != "checkbox" && input.type != "radio" && input.type != "file")
+                {
                     var checker = $(input).easyinput({easytip: ev.easytip});
 
-                    checker.error = function (e) {
+                    checker.error = function (e)
+                    {
                         ev.is_submit = false;
                         ev.result.push(e);
 
@@ -212,15 +246,18 @@ function get_js_path(jsFileName) {
                             ev.error(e);
                     };
 
-                    checker.success = function (e) {
+                    checker.success = function (e)
+                    {
                         ev.counter++;
-                        if (ev.counter == ev.inputs.length) {
+                        if (ev.counter == ev.inputs.length)
+                        {
                             ev.counter = 0;
 
                             if (!!ev.success)    //成功事件
                                 ev.success();
 
-                            if (!!ev.is_submit) {
+                            if (!!ev.is_submit)
+                            {
                                 ev.form.submit();
                             }
                         }
@@ -235,7 +272,8 @@ function get_js_path(jsFileName) {
          * 表单提交函数
          * @submit：bool值，用于定义是否真的提交表单
          * */
-        submit: function (submit) {
+        submit: function (submit)
+        {
             this._load();                                               //重新载入控件
             this.result.splice(0, this.result.length);     //清空前一次的结果
 
@@ -243,7 +281,8 @@ function get_js_path(jsFileName) {
             this.is_submit = submit;
 
             //如果没有需要判断的控件
-            if (this.inputs.length == 0) {
+            if (this.inputs.length == 0)
+            {
                 if (!!this.success)    //成功事件
                     this.success();
 
@@ -252,12 +291,14 @@ function get_js_path(jsFileName) {
             }
 
             //执行per_validation事件
-            if (this.per_validation) {
+            if (this.per_validation)
+            {
                 this.is_submit = this.per_validation();
             }
 
             var index;
-            for (index in this.inputs) {
+            for (index in this.inputs)
+            {
                 this.inputs[index].validation();
             }
         }
@@ -265,7 +306,8 @@ function get_js_path(jsFileName) {
     };
 
     //添加到jquery
-    $.fn.easyform = function (options) {
+    $.fn.easyform = function (options)
+    {
         var validation = new _easyform(this, options);
 
         return validation.init();
@@ -275,14 +317,19 @@ function get_js_path(jsFileName) {
 })(jQuery, window, document);
 
 //easyinput
-(function ($, window, document, undefined) {
+(function ($, window, document, undefined)
+{
     //单个input的检查器构造函数
-    var _easyinput = function (input, opt) {
-        this.input = input;
+    var _easyinput = function (input, opt)
+    {
 
-        if (0 == this.input.length && "input" != this.input[0].localName) {
+        if (0 == input.length && "input" != input[0].localName)
+        {
             throw new Error("easyform need a input object !");
         }
+
+        this.input = input;
+        //this.rule = $(input).data("easyform");
 
         this.rules = [];
 
@@ -296,13 +343,15 @@ function get_js_path(jsFileName) {
 
         this.tip = null;    //关联的tip
 
-        var data = easy_load_options(input[0].id, "easyform");
+        this.rules = easy_load_options(input[0].id, "easyform");
 
         //处理data-easyform中的配置属性
         var o = Object();
-        for (var index in data) {
-            if (index == "easytip") {
-                o["easytip"] = data[index];
+        for (var index in this.rules)
+        {
+            if (index == "easytip")
+            {
+                o["easytip"] = this.rules[index];
             }
         }
         this.options = $.extend({}, this.defaults, opt, o);
@@ -315,19 +364,22 @@ function get_js_path(jsFileName) {
     //单个input的检查器
     _easyinput.prototype = {
 
-        init: function () {
+        init: function ()
+        {
             //初始化easytip
-            if ("true" === this.options.easytip) {
+            if ("true" === this.options.easytip)
+            {
                 this.tip = $(this.input).easytip();
             }
 
-            var easyinput = this;
-            var rule = this.input.attr("data-easyform");
+            var $this = this;
 
             //是否实时检查
-            if (!!rule && -1 != rule.indexOf("real-time")) {
-                this.input.blur(function () {
-                    easyinput.validation();
+            if (!!this.rules && typeof(this.rules["real-time"]) != "undefined")
+            {
+                this.input.blur(function ()
+                {
+                    $this.validation();
                 });
             }
 
@@ -337,53 +389,32 @@ function get_js_path(jsFileName) {
         /**
          * 规则判断
          * */
-        validation: function () {
+        validation: function ()
+        {
             this.value = this.input.val();
             this.counter = 0;   //计数器清零
-            this.rule = this.input.attr("data-easyform");
-
             this.is_error = false;
 
-            this._parse(this.rule);
-
-            if (false == this._null(this, this.value, this.rule)) {
-                for (var i = 0; i < this.rules.length; i++) {
+            if (false == this._null(this, this.value, this.rules))
+            {
+                //for (var i = 0; i < Object.keys(this.rules).length; i++)
+                for (var index in this.rules)
+                {
                     //调用条件函数
-                    if (!!this.judge[this.rules[i].rule])
-                        this.judge[this.rules[i].rule](this, this.value, this.rules[i].param);
+                    if (!!this.judge[index])
+                        this.judge[index](this, this.value, this.rules[index]);
                 }
 
                 //如果没有写任何规则
-                if (this.rules.length == 0) {
+                if (Object.keys(this.rules).length == 0)
+                {
                     this._success();
                 }
             }
         },
 
-        //easyform 解析函数
-        _parse: function (str) {
-            this.rules = [];
-
-            var strs = !!str ? str.split(";") : {};
-
-            for (var i = 0; i < strs.length; i++) {
-                var s = strs[i];
-                var rule = s;
-                var param = "";
-
-                //有：号
-                var p = s.indexOf(":");
-                if (-1 != p) {
-                    rule = s.substr(0, p);
-                    param = s.substr(p + 1);
-                }
-
-                if (!!this.judge[rule])
-                    this.rules.push({rule: rule, param: param});
-            }
-        },
-
-        _error: function (rule) {
+        _error: function (rule)
+        {
             if (!!this.error)
                 this.error(this.input, rule);
 
@@ -391,12 +422,13 @@ function get_js_path(jsFileName) {
             {
                 var msg = $(this.input).data("message-" + rule);
 
-                if( !msg  )
+                if (!msg)
                     msg = $(this.input).data("message");
 
                 msg = !msg ? "格式错误" : msg;
 
-                if ("true" === this.options.easytip) {
+                if ("true" === this.options.easytip)
+                {
                     this.tip.show(msg);
                 }
 
@@ -406,33 +438,40 @@ function get_js_path(jsFileName) {
             return false;
         },
 
-        _success: function () {
+        _success: function ()
+        {
             if (!!this.success)
                 this.success(this.input);
 
             return true;
         },
 
-        _success_rule: function (rule) {
+        _success_rule: function (rule)
+        {
             this.counter += 1;
 
-            if (this.counter == this.rules.length)
+            if (this.counter == Object.keys(this.rules).length)
                 this._success();
 
             return true;
         },
 
-        _null: function (ei, v, r) {
-            if (!v) {
-                if (!!r && -1 != r.indexOf("null")) //rule不为空并且含有null
+        _null: function (ei, v, r)
+        {
+            if (!v)
+            {
+                //rule不为空并且含有null
+                if (!!r && typeof(r["null"]) != "undefined")
                 {
                     return ei._success();
                 }
-                else {
+                else
+                {
                     return ei._error("null");
                 }
             }
-            else {
+            else
+            {
                 return false;
             }
         },
@@ -442,35 +481,40 @@ function get_js_path(jsFileName) {
          * 通过对judge添加成员函数，可以扩充规则
          * */
         judge: {
-            "char-normal": function (ei, v, p) {
+            "char-normal": function (ei, v, p)
+            {
                 if (false == /^\w+$/.test(v))
                     return ei._error("char-normal");
                 else
                     return ei._success_rule("char-normal");
             },
 
-            "char-chinese": function (ei, v, p) {
+            "char-chinese": function (ei, v, p)
+            {
                 if (false == /^([\w]|[\u4e00-\u9fa5]|[ 。，、？￥“‘！：【】《》（）——+-])+$/.test(v))
                     return ei._error("char-chinese");
                 else
                     return ei._success_rule("char-chinese");
             },
 
-            "char-english": function (ei, v, p) {
+            "char-english": function (ei, v, p)
+            {
                 if (false == /^([\w]|[ .,?!$'":+-])+$/.test(v))
                     return ei._error("char-english");
                 else
                     return ei._success_rule("char-english");
             },
 
-            "email": function (ei, v, p) {
+            "email": function (ei, v, p)
+            {
                 if (false == /^[\w-]+(\.[\w-]+)*@[\w-]+(\.[\w-]+)+$/.test(v))
                     return ei._error("email");
                 else
                     return ei._success_rule("email");
             },
 
-            "length": function (ei, v, p) {
+            "length": function (ei, v, p)
+            {
                 var range = p.split(" ");
 
                 //如果长度设置为 length:6 这样的格式
@@ -484,7 +528,8 @@ function get_js_path(jsFileName) {
                     return ei._success_rule("length");
             },
 
-            "equal": function (ei, v, p) {
+            "equal": function (ei, v, p)
+            {
                 var pair = $(p);
                 if (0 == pair.length || pair.val() != v)
                     return ei._error("equal");
@@ -492,11 +537,13 @@ function get_js_path(jsFileName) {
                     return ei._success_rule("equal");
             },
 
-            "ajax": function (ei, v, p) {
+            "ajax": function (ei, v, p)
+            {
                 // 为ajax处理注册自定义事件
                 // HTML中执行相关的AJAX时，需要发送事件 easyinput-ajax 来通知 easyinput
                 // 该事件只有一个bool参数，easyinput 会根据这个值判断ajax验证是否成功
-                ei.input.delegate("", "easyinput-ajax", function (e, p) {
+                ei.input.delegate("", "easyinput-ajax", function (e, p)
+                {
                     ei.input.unbind("easyinput-ajax");
 
                     if (false == p)
@@ -508,42 +555,48 @@ function get_js_path(jsFileName) {
                 eval(p);
             },
 
-            "date": function (ei, v, p) {
+            "date": function (ei, v, p)
+            {
                 if (false == /^(\d{4})-(\d{2})-(\d{2})$/.test(v))
                     return ei._error("date");
                 else
                     return ei._success_rule("date");
             },
 
-            "time": function (ei, v, p) {
+            "time": function (ei, v, p)
+            {
                 if (false == /^(\d{2}):(\d{2}):(\d{2})$/.test(v))
                     return ei._error("time");
                 else
                     return ei._success_rule(v);
             },
 
-            "datetime": function (ei, v, p) {
+            "datetime": function (ei, v, p)
+            {
                 if (false == /^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})$/.test(v))
                     return ei._error("datetime");
                 else
                     return ei._success_rule("datetime");
             },
 
-            "money": function (ei, v, p) {
+            "money": function (ei, v, p)
+            {
                 if (false == /^([1-9][\d]{0,7}|0)(\.[\d]{1,2})?$/.test(v))
                     return ei._error("money");
                 else
                     return ei._success_rule("money");
             },
 
-            "number": function (ei, v, p) {
+            "number": function (ei, v, p)
+            {
                 if (false == /^\d{1,}$/.test(v))
                     return ei._error("number");
                 else
                     return ei._success_rule("number");
             },
 
-            "float": function (ei, v, p) {
+            "float": function (ei, v, p)
+            {
                 var range = p.split(" ");
 
                 //如果长度设置为 length:6 这样的格式
@@ -560,13 +613,15 @@ function get_js_path(jsFileName) {
                     return ei._success_rule("float");
             },
 
-            "uint": function (ei, v, p) {
+            "uint": function (ei, v, p)
+            {
                 v = parseInt(v);
 
                 var range = p.split(" ");
 
-                if (range.length == 1) {
-                    range[1] = 99999999999999;
+                if (range.length == 1)
+                {
+                    range[1] = 99999999999;
                 }
 
                 range[0] = parseInt(range[0]);
@@ -580,7 +635,8 @@ function get_js_path(jsFileName) {
         }
     };
 
-    $.fn.easyinput = function (options) {
+    $.fn.easyinput = function (options)
+    {
         var check = new _easyinput(this, options);
 
         return check.init();
@@ -589,12 +645,15 @@ function get_js_path(jsFileName) {
 })(jQuery, window, document);
 
 //easytip
-(function ($, window, document, undefined) {
-
-    var _easytip = function (ele, opt) {
+//TODO:BUG 多个tip显示状态不同步时，会出现显示问题
+(function ($, window, document, undefined)
+{
+    var _easytip = function (ele, opt)
+    {
         this.parent = ele;
 
-        if (0 == this.parent.length) {
+        if (0 == this.parent.length)
+        {
             throw new Error("easytip's is null !");
         }
 
@@ -610,21 +669,25 @@ function get_js_path(jsFileName) {
             style: {}
         };
 
+        this._fun_cache = Object();    //响应函数缓存，用来保存show里面自动添加的click函数，以便于后面的unbind针对性的一个一个删除
+
         //从控件的 data-easytip中读取配置信息
         var data = easy_load_options(ele[0].id, "easytip");
 
         this.options = $.extend({}, this.defaults, opt, data);
 
-        this.id = "easytip-div-main" + ele[0].id;
+        this.id = "easytip-div-main-" + ele[0].id;
     };
 
     _easytip.prototype = {
 
-        init: function () {
+        init: function ()
+        {
             var tip = $("#" + this.id);
 
             //同一个控件不会多次初始化。
-            if (tip.length == 0) {
+            if (tip.length == 0)
+            {
                 $(document.body).append("<div id=\"" + this.id + "\"><div class=\"easytip-text\"></div></div>");
 
                 tip = $("#" + this.id);
@@ -657,16 +720,19 @@ function get_js_path(jsFileName) {
             return this;
         },
 
-        _size: function () {
+        _size: function ()
+        {
             var parent = this.parent;
             var tip = $("#" + this.id);
 
-            if (tip.width() > 300) {
+            if (tip.width() > 300)
+            {
                 tip.width(300);
             }
         },
 
-        _css: function () {
+        _css: function ()
+        {
             var tip = $("#" + this.id);
             var text = $("#" + this.id + " .easytip-text");
             var arrow = $("#" + this.id + " .easytip-arrow");
@@ -676,17 +742,20 @@ function get_js_path(jsFileName) {
             arrow.css("border-color", "transparent transparent transparent transparent");
             tip.css("box-sizing", "content-box");
 
-            if (this.options.style != null && typeof(this.options.style) == "object") {
+            if (this.options.style != null && typeof(this.options.style) == "object")
+            {
                 text.css(this.options.style);
             }
         },
 
-        _arrow: function () {
+        _arrow: function ()
+        {
             var tip = $("#" + this.id);
             var text = $("#" + this.id + " .easytip-text");
             var arrow = $("#" + this.id + " .easytip-arrow");
 
-            switch (this.options.arrow) {
+            switch (this.options.arrow)
+            {
                 case "top":
                     arrow.css({
                         "left": "25px",
@@ -721,14 +790,16 @@ function get_js_path(jsFileName) {
             }
         },
 
-        _position: function () {
+        _position: function ()
+        {
             var tip = $("#" + this.id);
             var text = $("#" + this.id + " .easytip-text");
             var arrow = $("#" + this.id + " .easytip-arrow");
             var offset = $(this.parent).offset();
             var size = {width: $(this.parent).outerWidth(), height: $(this.parent).outerHeight()};
 
-            switch (this.options.position) {
+            switch (this.options.position)
+            {
                 case "top":
 
                     //tip.css("left", offset.left - this.padding);
@@ -771,7 +842,8 @@ function get_js_path(jsFileName) {
             tip.css("top", parseInt(this.options.top) + top);
         },
 
-        show: function (msg) {
+        show: function (msg)
+        {
             var tip = $("#" + this.id);
             var text = $("#" + this.id + " .easytip-text");
             var arrow = $("#" + this.id + " .easytip-arrow");
@@ -786,40 +858,55 @@ function get_js_path(jsFileName) {
             this._position();
             this._arrow();
 
+            var $this = this;
+
             var onshow = this.options.onshow;
             var onclose = this.options.onclose;
 
-            tip.fadeIn(speed, function () {
+            tip.fadeIn(speed, function ()
+            {
                 if (!!onshow)    onshow({parent: parent, target: tip[0]});
 
-                if (!isNaN(disappear)) {
-                    setTimeout(function () {
-
-                        tip.fadeOut(speed, function () {
+                if (!isNaN(disappear))
+                {
+                    //如果disappear是数字，则倒计时disappear毫秒后消失
+                    setTimeout(function ()
+                    {
+                        tip.fadeOut(speed, function ()
+                        {
                             if (!!onclose)    onclose({parent: parent, target: tip[0]});
                         });
 
                     }, disappear);
                 }
-                else if (disappear == "self" || disappear == "other") {
-                    $(document).click(function (e) {
-                        if (disappear == "self" && e.target == text[0]) {
-                            tip.fadeOut(speed, function () {
+                else if (disappear == "self" || disappear == "other")
+                {
+                    $(document).bind('click', $this._fun_cache[tip[0].id] = function (e)
+                    {
+                        if (disappear == "self" && e.target == text[0])
+                        {
+                            tip.fadeOut(speed, function ()
+                            {
                                 if (!!onclose)    onclose({parent: parent, target: tip[0]});
-                                $(document).unbind("click");
+                                $(document).unbind("click", $this._fun_cache[tip[0].id]);
                             });
                         }
-                        else if (disappear == "other" && e.target != tip[0]) {
-                            tip.fadeOut(speed, function () {
+                        else if (disappear == "other" && e.target != tip[0])
+                        {
+                            tip.fadeOut(speed, function ()
+                            {
                                 if (!!onclose)    onclose({parent: parent, target: tip[0]});
-                                $(document).unbind("click");
+                                $(document).unbind("click", $this._fun_cache[tip[0].id]);
                             });
                         }
                     });
                 }
-                else if (disappear == "lost-focus") {
-                    $(parent).focusout(function () {
-                        tip.fadeOut(speed, function () {
+                else if (disappear == "lost-focus")
+                {
+                    $(parent).focusout(function ()
+                    {
+                        tip.fadeOut(speed, function ()
+                        {
                             if (!!onclose)    onclose({parent: parent, target: tip[0]});
                             $(parent).unbind("focusout");
                         });
@@ -828,177 +915,24 @@ function get_js_path(jsFileName) {
             });
         },
 
-        close: function () {
+        close: function ()
+        {
             var tip = $("#" + this.id);
             var parent = this.parent;
             var onclose = this.options.onclose;
 
-            tip.fadeOut(this.options.speed, function () {
+            tip.fadeOut(this.options.speed, function ()
+            {
                 if (!!onclose)    onclose({parent: parent, target: tip[0]});
             });
         }
     };
 
-    $.fn.easytip = function (options) {
+    $.fn.easytip = function (options)
+    {
         var tip = new _easytip(this, options);
 
         return tip.init();
-    };
-
-})(jQuery, window, document);
-
-//easyimagefile 图片文件上传
-//TODO 替换内容的方式有问题，应该换成更好的html
-//TODO 不能缓存提交一个默认值，在修改内容的时候，不能保持过去的值
-//TODO 默认空白图片不对，可以考虑不使用img控件
-(function ($, window, document, undefined) {
-    var _easyimagefile = function (input, opt) {
-        this.input = input;
-        this.id = input.attr('id');
-
-        this.fileid = this.id + "-file";
-        this.imgid = this.id + "-img";
-        this.tipid = this.id + "-tip";
-        this.delid = this.id + "-del";
-
-        this.last_file = null;
-
-        this.defaults = {
-            "default": get_js_path("easyform.js") + "none.png"
-        };
-
-        this.options = $.extend({}, this.defaults, opt);
-    };
-
-    _easyimagefile.prototype = {
-
-        init: function () {
-            var style = this.input.attr('style');
-            var $this = this;
-            var src = this.input.attr('src');
-
-            if (!src || src.length == 0) {
-                src = $this.options.default;
-            }
-
-
-            var sclass = this.input.attr('class');
-
-            var tip_text = this.input.attr('title');
-
-            if (!tip_text) tip_text = "";
-
-            this.input.css("position", "relative");
-
-            var x = this.input.position().left;
-            var y = this.input.position().top;
-            var w = this.input.outerWidth();
-            var h = this.input.outerHeight();
-
-            var file = "<input type='file' name='" + $this.fileid + "'  id='" + $this.fileid + "' style='display:none;'>";
-            var img = "<img src='" + src + "' name='" + $this.imgid + "'  id='" + $this.imgid + "' style='" + style + ";cursor:pointer;' class='" + sclass + "'>";
-            var tip = "<div id='" + $this.tipid + "' style='display:none; position:absolute;top:" + y + "px;left:" + x + "px;width:" + w + "px;height:" + h + "px;background-color:#000;text-align:center;cursor:pointer;-moz-opacity: 0.6; opacity:0.6; filter: alpha(opacity=60);color:#fff;padding-top:20%;'>" + tip_text +
-                "<div id='" + $this.delid + "' style='position:absolute;top:5px;right:5px;display:block;' class='easyform-close'></div>" +
-                "</div>";
-
-            this.input.replaceWith(file + img + tip);
-
-            var imgobj = $("#" + $this.imgid);
-            var fileobj = $("#" + $this.fileid);
-
-            var disabled = this.input.attr('disabled');
-
-            if (!disabled) {
-                imgobj.click(function () {
-                    fileobj.click();
-                });
-
-                $("#" + $this.imgid + ", #" + $this.tipid).hover(function (e) {
-                    $("#" + $this.tipid).show();
-                }, function (e) {
-                    $("#" + $this.tipid).hide();
-                });
-
-                $("#" + $this.tipid).click(function () {
-                    fileobj.click();
-                });
-
-                $("#" + $this.delid).click(function (e) {
-                    e.stopPropagation();
-                    imgobj.attr("src", $this.options.default);
-                    fileobj.val("");    //TODO 删除已选择的文件，未经测试。
-                });
-
-                $("#" + $this.fileid).change(function () {
-                    $this._onchange();
-                });
-            }
-
-            return this;
-        },
-
-        _onchange: function () {
-            var file = $("#" + this.fileid)[0];
-            var img_file = "";
-            var imgobj = $("#" + this.imgid);
-
-            this.last_file = imgobj.attr("src");
-
-            //TODO 只有IE下能判断文件类型
-            if (file.files && file.files[0])        //Firefox 下获取图片本地路径
-            {
-                img_file = window.URL.createObjectURL(file.files[0]);
-                imgobj.attr("src", img_file);
-            }
-            else    //IE 下获取图片本地路径
-            {
-                file.select();
-
-                img_file = document.selection.createRange().text;
-
-                try {
-                    imgobj[0].style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
-                    imgobj[0].filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = img_file;
-                }
-                catch (e) {
-                    alert("请选择一个图片文件!");
-                    return false;
-                }
-
-                document.selection.empty();
-            }
-
-            var onchange = this.input.attr("onchange");
-
-            if (!!onchange) {
-                eval(onchange);
-            }
-        },
-
-        reset: function () {
-            var old = this.fileid;
-
-            var file = "<input type='file' name='" + this.fileid + "'  id='" + this.fileid + "' style='display:none;' >";
-
-            $("#" + old).replaceWith(file);
-
-            var $this = this;
-
-            $("#" + this.fileid).change(function () {
-                $this._onchange();
-            });
-        },
-
-        val: function () {
-            return $("#" + this.fileid).val();
-        }
-    };
-
-    $.fn.easyimagefile = function (options) {
-
-        var eif = new _easyimagefile(this, options);
-
-        return eif.init();
     };
 
 })(jQuery, window, document);
