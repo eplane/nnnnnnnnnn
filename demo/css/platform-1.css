@@ -485,8 +485,9 @@ body {
     font-size: 16px;
 }
 
-.form-div input[type="checkbox"] {
-    margin: 20px 0 20px 10px;
+.form-div input[type="checkbox"], .form-div input[type="radio"] {
+    padding: 10px 5px 10px 10px;
+    vertical-align: middle;
 }
 
 .form-div input[type="button"], .form-div input[type="submit"] {
@@ -499,6 +500,11 @@ body {
     color: rgba(64, 64, 64, 1.00);
 }
 
+.form-div table th{
+    font-weight: normal;
+    padding: 0 10px 0 0;
+}
+
 .form-div table img {
     vertical-align: middle;
     margin: 0 0 5px 0;
@@ -508,6 +514,11 @@ body {
     color: rgba(64, 64, 64, 1.00);
     font-size: 12px;
     margin-top: 30px;
+}
+
+.form-div label {
+    padding: 0 10px;
+    line-height: 30px;
 }
 
 .form-div .buttons {
@@ -566,6 +577,23 @@ input[type="button"]:active, input[type="submit"]:active {
     /*border: 1px solid #777;*/
 }
 
+textarea
+{
+    border-radius: 5px;
+    box-shadow: inset 0 2px 5px #eee;
+    padding: 5px;
+    border: 1px solid #D4D4D4;
+    color: #333333;
+    margin-top: 5px;
+    resize: none;
+
+}
+textarea:focus
+{
+    border: 1px solid #50afeb;
+    outline: none;
+}
+
 /* 说明块*/
 .source-div {
     margin: 50px 0;
@@ -578,62 +606,144 @@ input[type="button"]:active, input[type="submit"]:active {
     font-size: 12px;
 }
 
-h3
-{
+h3 {
     margin: 0 0 30px 0;
     font-size: 24px;
     font-weight: normal;
 }
 
-.option
-{
+.option {
     width: 97%;
     margin: auto;
     text-align: left;
 }
 
-.option thead{
+.option thead {
     border-bottom: 1px solid #ccc;
     color: #777;
     line-height: 40px;
 }
 
-.option th{
+.option th {
     font-weight: normal;
 }
 
-.option td{
-    border-bottom: 1px solid #eee;
+.option td {
+    border-bottom: 1px dotted #eee;
     vertical-align: top;
     padding: 5px;
     line-height: 20px;
 }
 
-section p{
+section p {
     line-height: 20px;
-    text-indent:2em;
+    text-indent: 2em;
 }
 
-p.code
-{
-    text-indent:0;
+p.code {
+    text-indent: 0;
     padding-left: 3em;
     color: #555555;
     font-size: 12px;
 }
 
-p.code .keyword{
-    color:cadetblue;
-}
-
-p.code .attr{
+p.code .keyword {
     color: cadetblue;
 }
 
-p.code .value{
+p.code .attr {
+    color: cadetblue;
+}
+
+p.code .value {
     color: blue;
 }
 
-section ul{line-height: 20px;
+section ul {
+    line-height: 20px;
     padding-left: 3em;
 }
+
+
+/*
+input[type="radio"].css-checkbox {
+    position: absolute;
+    z-index: -1000;
+    left: -1000px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+}
+
+input[type="radio"].css-checkbox + label.radio-label {
+    padding-left: 21px;
+    height: 17px;
+    display: inline-block;
+    line-height: 17px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    vertical-align: middle;
+    cursor: pointer;
+    margin: 10px 5px 10px 20px;
+
+}
+
+input[type="radio"].css-checkbox:checked + label.radio-label {
+    background-position: 0 -17px;
+}
+
+label.radio-label {
+    background-image: url(../img/radio.png);
+    background-repeat: no-repeat;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+input[type="checkbox"].css-checkbox {
+    position: absolute;
+    z-index: -1000;
+    left: -1000px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    width: 1px;
+    margin: -1px;
+    padding: 0;
+    border: 0;
+}
+
+input[type="checkbox"].css-checkbox + label.checkbox-label {
+    padding-left: 20px;
+    height: 15px;
+    display: inline-block;
+    line-height: 15px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    vertical-align: middle;
+    cursor: pointer;
+    margin: 10px 5px 10px 20px;
+
+}
+
+input[type="checkbox"].css-checkbox:checked + label.checkbox-label {
+    background-position: 0 -15px;
+}
+
+label.checkbox-label {
+    background-image: url(../img/checkbox.png);
+    background-repeat: no-repeat;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}*/

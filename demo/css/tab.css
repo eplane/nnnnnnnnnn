@@ -35,7 +35,7 @@ section {
     display: none;
 }
 
-label {
+.source-div label {
     display: inline-block;
     margin: 0 0 -1px;
     padding: 8px 35px;
@@ -72,7 +72,7 @@ label:hover {
     cursor: pointer;
 }
 
-input:checked + label {
+input.tab-input:checked + label {
     color: #555;
     border: 1px solid #ddd;
     border-top: 2px solid orange;

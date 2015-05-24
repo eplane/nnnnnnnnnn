@@ -61,13 +61,15 @@ function easy_load_options(id, name)
 
     //将字符串用；分割
     options = (!!options ? options.split(";") : undefined);
-
+    var data = Object();
     if (!!options)
     {
-        var data = Object();
         var index;
         for (index in options)
         {
+            if (index == "")
+                continue;
+
             var temps = options[index];
             var p = temps.indexOf(":");
 
@@ -89,83 +91,6 @@ function easy_load_options(id, name)
     }
 
     return data;
-}
-
-function get_js_path(jsFileName)
-{
-    var e = {};
-    var htmlPath = "";
-    var jsPath = "";
-    if (document.location.protocol == 'file:')
-    {
-        e.BasePath = unescape(document.location.pathname.substr(1));
-        e.BasePath = e.BasePath.replace(/\\/gi, '/');
-        e.BasePath = 'file://' + e.BasePath.substring(0, e.BasePath.lastIndexOf('/') + 1);
-        e.FullBasePath = e.BasePath;
-    }
-    else
-    {
-        e.BasePath = document.location.pathname.substring(0, document.location.pathname.lastIndexOf('/') + 1);
-        e.FullBasePath = document.location.protocol + '//' + document.location.host + e.BasePath;
-    }
-
-    htmlPath = e.FullBasePath;
-    var scriptTag = document.getElementsByTagName("script");
-    for (var i = 0; i < scriptTag.length; i++)
-    {
-        if (scriptTag[i].src.lastIndexOf(jsFileName) >= 0)
-        {
-            var src = scriptTag[i].src.replace(/\\/gi, '/');//把\转换为/
-            if (src.toLowerCase().indexOf("file://") == 0)
-            {//http全路径形式 file://
-                var _temp = src.substring(0, src.lastIndexOf('/') + 1);
-                jsPath = _temp;
-                //alert("file://")
-            }
-            else if (src.toLowerCase().indexOf("http://") == 0)
-            {//http全路径形式 http://
-                var _temp = src.substring(0, src.lastIndexOf('/') + 1);
-                jsPath = _temp;
-                //alert("http://")
-            }
-            else if (src.toLowerCase().indexOf("https://") == 0)
-            {//http全路径形式 https://
-                var _temp = src.substring(0, src.lastIndexOf('/') + 1);
-                jsPath = _temp;
-                //alert("https://")
-            }
-            else if (src.toLowerCase().indexOf("../") == 0)
-            {//相对路径形式 ../
-                jsPath = htmlPath + src.substring(0, src.lastIndexOf('/') + 1);
-                //alert("../")
-            }
-            else if (src.toLowerCase().indexOf("./") == 0)
-            {//相对路径形式 ./
-                jsPath = htmlPath + src.substring(0, src.lastIndexOf('/') + 1);
-                //alert("./")
-            } else if (src.toLowerCase().indexOf("/") == 0)
-            {//相对路径形式 /,只有采用http访问时有效
-                if (document.location.protocol == 'http:' || document.location.protocol == 'https:')
-                {
-                    var _temp = document.location.protocol + "//" + document.location.host + src.substring(0, src.lastIndexOf('/') + 1);
-                    jsPath = _temp;
-                }
-                //alert("/")
-            }
-            else if (src.toLowerCase().search(/^([a-z]{1}):/) >= 0)
-            {//盘符形式 c:
-                var _temp = src.substring(0, src.lastIndexOf('/') + 1);
-                jsPath = _temp;
-                //alert("^([a-z]+):")
-            }
-            else
-            {//同级形式
-                jsPath = htmlPath;
-            }
-        }
-    }
-
-    return jsPath;
 }
 
 //easyform
@@ -231,11 +156,27 @@ function get_js_path(jsFileName)
             this.inputs.splice(0, this.inputs.length);
             var ev = this;
 
-            this.form.find("input:visible").each(function (index, input)
+            this.form.find("input:visible, textarea:visible").each(function (index, input)
             {
                 //排除 hidden、button、submit、checkbox、radio、file
-                if (input.type != "hidden" && input.type != "button" && input.type != "submit" && input.type != "checkbox" && input.type != "radio" && input.type != "file")
+                if (input.type != "hidden" && input.type != "button" && input.type != "submit"
+                        //&& input.type != "checkbox"
+                        //&& input.type != "radio"
+                    && input.type != "file")
                 {
+                    if (input.type == "radio" || input.type == "checkbox")
+                    {
+                        var name = input.name;
+
+                        for (index in  ev.inputs)
+                        {
+                            if (name == ev.inputs[index].input[0].name)
+                            {
+                                return;
+                            }
+                        }
+                    }
+
                     var checker = $(input).easyinput({easytip: ev.easytip});
 
                     checker.error = function (e)
@@ -275,11 +216,17 @@ function get_js_path(jsFileName)
          * */
         submit: function (submit)
         {
-            this._load();                                               //重新载入控件
-            this.result.splice(0, this.result.length);     //清空前一次的结果
+            this._load();                                                   //重新载入控件
+            this.result.splice(0, this.result.length);       //清空前一次的结果
 
             this.counter = 0;
             this.is_submit = submit;
+
+            //执行per_validation事件
+            if (this.per_validation)
+            {
+                this.is_submit = this.per_validation();
+            }
 
             //如果没有需要判断的控件
             if (this.inputs.length == 0)
@@ -289,12 +236,6 @@ function get_js_path(jsFileName)
 
                 if (this.is_submit)
                     this.form.submit();
-            }
-
-            //执行per_validation事件
-            if (this.per_validation)
-            {
-                this.is_submit = this.per_validation();
             }
 
             var index;
@@ -323,16 +264,13 @@ function get_js_path(jsFileName)
     //单个input的检查器构造函数
     var _easyinput = function (input, opt)
     {
-
-        if (0 == input.length && "input" != input[0].localName)
+        if (0 == input.length)
         {
             throw new Error("easyform need a input object !");
         }
 
-        this.input = input;
-        //this.rule = $(input).data("easyform");
-
-        this.rules = [];
+        this.input = input;     //绑定的控件
+        this.rules = [];            //规则
 
         //事件
         this.error = null;
@@ -344,6 +282,7 @@ function get_js_path(jsFileName)
 
         this.tip = null;    //关联的tip
 
+        //读取 data-easyform属性
         this.rules = easy_load_options(input[0].id, "easyform");
 
         //处理data-easyform中的配置属性
@@ -396,9 +335,16 @@ function get_js_path(jsFileName)
             this.counter = 0;   //计数器清零
             this.is_error = false;
 
-            if (false == this._null(this, this.value, this.rules))
+            if (this.input.attr("type") == "radio" || this.input.attr("type") == "checkbox")
             {
-                //for (var i = 0; i < Object.keys(this.rules).length; i++)
+                var name = this.input.attr("name");
+
+                var v = $('input[name="' + name + '"]:checked').val();
+
+                this._null(this, v, this.rules);
+            }
+            else if (false == this._null(this, this.value, this.rules))
+            {
                 for (var index in this.rules)
                 {
                     //调用条件函数
@@ -492,7 +438,7 @@ function get_js_path(jsFileName)
 
             "char-chinese": function (ei, v, p)
             {
-                if (false == /^([\w]|[\u4e00-\u9fa5]|[ 。，、？￥“‘！：【】《》（）——+-])+$/.test(v))
+                if (false == /^([\w]|[\u4e00-\u9fa5]|[ 。，、？￥“”‘’！：【】《》（）——.,?!$'":+-])+$/.test(v))
                     return ei._error("char-chinese");
                 else
                     return ei._success_rule("char-chinese");
@@ -626,7 +572,7 @@ function get_js_path(jsFileName)
 
                 var range = p.trim().split(" ");
 
-                if("" == p.trim())
+                if ("" == p.trim())
                 {
                     console.warn("您的" + ei.input.id + "uint规则，没有设置值域!");
                     range[0] = 0;
