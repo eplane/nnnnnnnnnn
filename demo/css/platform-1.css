@@ -593,7 +593,7 @@ h3
 }
 
 .option thead{
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #ccc;
     color: #777;
     line-height: 40px;
 }
@@ -603,6 +603,7 @@ h3
 }
 
 .option td{
+    border-bottom: 1px solid #eee;
     vertical-align: top;
     padding: 5px;
     line-height: 20px;

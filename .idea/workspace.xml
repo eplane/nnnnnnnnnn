@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" readonly="true" id="70a3604b-6cee-409b-82ee-32771f6c4de9" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/demo.html" afterPath="$PROJECT_DIR$/demo/demo.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/easyform/easyform.js" afterPath="$PROJECT_DIR$/easyform/easyform.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/css/platform-1.css" afterPath="$PROJECT_DIR$/demo/css/platform-1.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/demo/css/tab.css" afterPath="$PROJECT_DIR$/demo/css/tab.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="easyform.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,10 +29,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="easyform.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="easyform.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/easyform/easyform.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="5581" max-vertical-offset="10716">
+            <state vertical-scroll-proportion="-5.773913" vertical-offset="5809" max-vertical-offset="10716">
               <caret line="238" column="65" selection-start-line="238" selection-start-column="63" selection-end-line="238" selection-end-column="65" />
               <folding>
                 <element signature="n#!!doc" expanded="true" />
@@ -56,14 +55,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="demo.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="demo.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/demo/demo.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.033928573" vertical-offset="798" max-vertical-offset="2641">
-              <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
+            <state vertical-scroll-proportion="-65.10714" vertical-offset="1084" max-vertical-offset="3135">
+              <caret line="450" column="0" selection-start-line="450" selection-start-column="0" selection-end-line="450" selection-end-column="0" />
               <folding>
                 <element signature="tag#head#0;tag#html#0" expanded="true" />
                 <element signature="tag#script#0;tag#body#0;tag#html#0" expanded="true" />
+                <element signature="tag#div#0;tag#body#0;tag#html#0" expanded="true" />
                 <element signature="tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
                 <element signature="tag#table#0;tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
                 <element signature="tag#tr#0;tag#table#0;tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
@@ -91,6 +91,7 @@
                 <element signature="tag#div#0;tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
                 <element signature="n#style#0;n#input#0;n#div#0;n#form#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#input#1;n#div#0;n#form#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <element signature="tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
                 <element signature="tag#p#0;tag#section#0;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
                 <element signature="tag#p#1;tag#section#0;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
                 <element signature="tag#p#2;tag#section#0;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
@@ -102,6 +103,7 @@
                 <element signature="tag#p#0;tag#section#2;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
                 <element signature="tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
                 <element signature="tag#p#0;tag#section#0;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
+                <element signature="tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
                 <element signature="tag#p#0;tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
                 <element signature="tag#p#1;tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
                 <element signature="tag#span#6;tag#p#1;tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
@@ -149,7 +151,6 @@
                 <element signature="tag#span#12;tag#p#1;tag#section#1;tag#div#3;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
                 <element signature="tag#p#3;tag#section#1;tag#div#3;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
                 <element signature="tag#p#4;tag#section#1;tag#div#3;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
-                <element signature="tag#script#1;tag#body#0;tag#html#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -158,8 +159,8 @@
       <file leaf-file-name="platform-1.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/demo/css/platform-1.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="8627" max-vertical-offset="12217">
-              <caret line="606" column="14" selection-start-line="606" selection-start-column="14" selection-end-line="606" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="11363" max-vertical-offset="12236">
+              <caret line="610" column="0" selection-start-line="610" selection-start-column="0" selection-end-line="610" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -181,10 +182,10 @@
         <option value="$PROJECT_DIR$/../wz/admin/resource/js/plugins/easyform/easyform.js" />
         <option value="$PROJECT_DIR$/easyform/easyform - 副本.js" />
         <option value="$PROJECT_DIR$/easyform/easyform.js" />
-        <option value="$PROJECT_DIR$/demo/css/platform-1.css" />
         <option value="$PROJECT_DIR$/demo/js/prefixfree.min.js" />
         <option value="$PROJECT_DIR$/demo/css/tab.css" />
         <option value="$PROJECT_DIR$/demo/demo.html" />
+        <option value="$PROJECT_DIR$/demo/css/platform-1.css" />
       </list>
     </option>
   </component>
@@ -287,42 +288,6 @@
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="easyform">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="demo">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="js">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="easyform">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="demo">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="css">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
         </subPane>
       </pane>
     </panes>
@@ -397,7 +362,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
@@ -405,7 +370,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15332326" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15332326" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -453,6 +418,7 @@
           <folding>
             <element signature="tag#head#0;tag#html#0" expanded="true" />
             <element signature="tag#script#0;tag#body#0;tag#html#0" expanded="true" />
+            <element signature="tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#table#0;tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#tr#0;tag#table#0;tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
@@ -480,6 +446,7 @@
             <element signature="tag#div#0;tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="n#style#0;n#input#0;n#div#0;n#form#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#1;n#div#0;n#form#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#0;tag#section#0;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#1;tag#section#0;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#2;tag#section#0;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
@@ -491,6 +458,7 @@
             <element signature="tag#p#0;tag#section#2;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#0;tag#section#0;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
+            <element signature="tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#0;tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#1;tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#span#6;tag#p#1;tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
@@ -538,7 +506,6 @@
             <element signature="tag#span#12;tag#p#1;tag#section#1;tag#div#3;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#3;tag#section#1;tag#div#3;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#4;tag#section#1;tag#div#3;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
-            <element signature="tag#script#1;tag#body#0;tag#html#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -582,6 +549,7 @@
           <folding>
             <element signature="tag#head#0;tag#html#0" expanded="true" />
             <element signature="tag#script#0;tag#body#0;tag#html#0" expanded="true" />
+            <element signature="tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#table#0;tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#tr#0;tag#table#0;tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
@@ -609,6 +577,7 @@
             <element signature="tag#div#0;tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="n#style#0;n#input#0;n#div#0;n#form#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#1;n#div#0;n#form#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#0;tag#section#0;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#1;tag#section#0;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#2;tag#section#0;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
@@ -620,6 +589,7 @@
             <element signature="tag#p#0;tag#section#2;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#0;tag#section#0;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
+            <element signature="tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#0;tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#1;tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#span#6;tag#p#1;tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
@@ -667,7 +637,6 @@
             <element signature="tag#span#12;tag#p#1;tag#section#1;tag#div#3;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#3;tag#section#1;tag#div#3;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#4;tag#section#1;tag#div#3;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
-            <element signature="tag#script#1;tag#body#0;tag#html#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -719,6 +688,7 @@
           <folding>
             <element signature="tag#head#0;tag#html#0" expanded="true" />
             <element signature="tag#script#0;tag#body#0;tag#html#0" expanded="true" />
+            <element signature="tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#table#0;tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#tr#0;tag#table#0;tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
@@ -746,6 +716,7 @@
             <element signature="tag#div#0;tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="n#style#0;n#input#0;n#div#0;n#form#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#1;n#div#0;n#form#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#0;tag#section#0;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#1;tag#section#0;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#2;tag#section#0;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
@@ -757,6 +728,7 @@
             <element signature="tag#p#0;tag#section#2;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#0;tag#section#0;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
+            <element signature="tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#0;tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#1;tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#span#6;tag#p#1;tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
@@ -804,7 +776,6 @@
             <element signature="tag#span#12;tag#p#1;tag#section#1;tag#div#3;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#3;tag#section#1;tag#div#3;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#4;tag#section#1;tag#div#3;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
-            <element signature="tag#script#1;tag#body#0;tag#html#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -840,6 +811,7 @@
           <folding>
             <element signature="tag#head#0;tag#html#0" expanded="true" />
             <element signature="tag#script#0;tag#body#0;tag#html#0" expanded="true" />
+            <element signature="tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#table#0;tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#tr#0;tag#table#0;tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
@@ -867,6 +839,7 @@
             <element signature="tag#div#0;tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="n#style#0;n#input#0;n#div#0;n#form#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#1;n#div#0;n#form#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#0;tag#section#0;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#1;tag#section#0;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#2;tag#section#0;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
@@ -878,6 +851,7 @@
             <element signature="tag#p#0;tag#section#2;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#0;tag#section#0;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
+            <element signature="tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#0;tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#1;tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#span#6;tag#p#1;tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
@@ -925,7 +899,6 @@
             <element signature="tag#span#12;tag#p#1;tag#section#1;tag#div#3;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#3;tag#section#1;tag#div#3;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#4;tag#section#1;tag#div#3;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
-            <element signature="tag#script#1;tag#body#0;tag#html#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -995,49 +968,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/easyform/easyform - 副本.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="16506" max-vertical-offset="17157">
-          <caret line="951" column="3" selection-start-line="951" selection-start-column="3" selection-end-line="951" selection-end-column="3" />
-          <folding>
-            <element signature="n#!!doc" expanded="false" />
-            <element signature="e#25185#27153#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/easyform/easyform.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4937" max-vertical-offset="10716">
-          <caret line="238" column="65" selection-start-line="238" selection-start-column="63" selection-end-line="238" selection-end-column="65" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <element signature="n#!!doc;n#easy_load_options#0" expanded="true" />
-            <element signature="n#!!block;n#easy_load_options#0" expanded="false" />
-            <element signature="n#!!block;n#get_js_path#0" expanded="false" />
-            <element signature="e#10975#11008#0" expanded="true" />
-            <element signature="e#18628#18858#0" expanded="false" />
-            <element signature="e#19129#28623#0" expanded="false" />
-            <element signature="e#20117#28492#0" expanded="false" />
-            <element signature="e#21327#21512#0" expanded="false" />
-            <element signature="e#21549#22072#0" expanded="false" />
-            <element signature="e#22111#23542#0" expanded="false" />
-            <element signature="e#23584#25414#0" expanded="false" />
-            <element signature="e#25454#28147#0" expanded="false" />
-            <element signature="e#28185#28486#0" expanded="false" />
-            <element signature="e#28537#28619#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/demo/css/platform-1.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="10451" max-vertical-offset="12217">
-          <caret line="606" column="14" selection-start-line="606" selection-start-column="14" selection-end-line="606" selection-end-column="14" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/demo/css/tab.css">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.74319726" vertical-offset="1425" max-vertical-offset="2394">
@@ -1046,21 +976,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/demo/scss/style.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2090">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/demo/demo.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.033928573" vertical-offset="798" max-vertical-offset="2641">
-          <caret line="93" column="0" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
+        <state vertical-scroll-proportion="-65.10714" vertical-offset="1084" max-vertical-offset="3135">
+          <caret line="450" column="0" selection-start-line="450" selection-start-column="0" selection-end-line="450" selection-end-column="0" />
           <folding>
             <element signature="tag#head#0;tag#html#0" expanded="true" />
             <element signature="tag#script#0;tag#body#0;tag#html#0" expanded="true" />
+            <element signature="tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#table#0;tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#tr#0;tag#table#0;tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
@@ -1088,6 +1011,7 @@
             <element signature="tag#div#0;tag#form#0;tag#div#0;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="n#style#0;n#input#0;n#div#0;n#form#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#input#1;n#div#0;n#form#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#0;tag#section#0;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#1;tag#section#0;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#2;tag#section#0;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
@@ -1099,6 +1023,7 @@
             <element signature="tag#p#0;tag#section#2;tag#div#1;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#0;tag#section#0;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
+            <element signature="tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#0;tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#1;tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#span#6;tag#p#1;tag#section#1;tag#div#2;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
@@ -1146,7 +1071,38 @@
             <element signature="tag#span#12;tag#p#1;tag#section#1;tag#div#3;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#3;tag#section#1;tag#div#3;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
             <element signature="tag#p#4;tag#section#1;tag#div#3;tag#div#0;tag#body#0;tag#html#0" expanded="true" />
-            <element signature="tag#script#1;tag#body#0;tag#html#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/demo/css/platform-1.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="11363" max-vertical-offset="12236">
+          <caret line="610" column="0" selection-start-line="610" selection-start-column="0" selection-end-line="610" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/easyform/easyform.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.773913" vertical-offset="5809" max-vertical-offset="10716">
+          <caret line="238" column="65" selection-start-line="238" selection-start-column="63" selection-end-line="238" selection-end-column="65" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+            <element signature="n#!!doc;n#easy_load_options#0" expanded="true" />
+            <element signature="n#!!block;n#easy_load_options#0" expanded="false" />
+            <element signature="n#!!block;n#get_js_path#0" expanded="false" />
+            <element signature="e#10975#11008#0" expanded="true" />
+            <element signature="e#18628#18858#0" expanded="false" />
+            <element signature="e#19129#28623#0" expanded="false" />
+            <element signature="e#20117#28492#0" expanded="false" />
+            <element signature="e#21327#21512#0" expanded="false" />
+            <element signature="e#21549#22072#0" expanded="false" />
+            <element signature="e#22111#23542#0" expanded="false" />
+            <element signature="e#23584#25414#0" expanded="false" />
+            <element signature="e#25454#28147#0" expanded="false" />
+            <element signature="e#28185#28486#0" expanded="false" />
+            <element signature="e#28537#28619#0" expanded="false" />
           </folding>
         </state>
       </provider>
