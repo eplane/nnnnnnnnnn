@@ -459,7 +459,6 @@ body {
 .page {
     width: 1000px;
     margin: 0 auto;
-    padding-top: 80px;
 }
 
 .img-welcome {
@@ -513,6 +512,11 @@ body {
 .footer {
     color: rgba(64, 64, 64, 1.00);
     font-size: 12px;
+    margin: 30px 0;
+}
+
+.header
+{
     margin: 30px 0;
 }
 
