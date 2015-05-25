@@ -98,7 +98,12 @@ input.tab-input:checked + label {
 #tab17:checked ~ #content17,
 #tab18:checked ~ #content18,
 #tab19:checked ~ #content19,
-#tab20:checked ~ #content20 {
+#tab20:checked ~ #content20,
+#tab21:checked ~ #content21,
+#tab22:checked ~ #content22,
+#tab23:checked ~ #content23,
+#tab24:checked ~ #content24,
+#tab25:checked ~ #content25{
     display: block;
 }
 

@@ -39,32 +39,32 @@
             <tr>
                 <td>用户名</td>
                 <td><input name="uid" type="text" id="uid"
-                           data-easyform="length:4-16;char-normal;real-time;ajax:ajax_demo(1)"
+                           data-easyform="length:4 16;char-normal;real-time;ajax:ajax_demo(1);"
                            data-message="用户名必须为4—16位的英文字母或数字"
-                           data-easytip="position:top;" data-message-ajax="用户名已存在!">
+                           data-easytip="position:top;class:easy-blue;" data-message-ajax="用户名已存在!">
                 </td>
             </tr>
             <tr>
                 <td>密码</td>
                 <td><input name="psw1" type="password" id="psw1" data-easyform="length:6 16;"
                            data-message="密码必须为6—16位"
-                           data-easytip="theme:easy-blue;"></td>
+                           data-easytip="class:easy-blue;"></td>
             </tr>
             <tr>
                 <td>确认密码</td>
                 <td><input name="psw2" type="password" id="psw2" data-easyform="length:6 16;equal:#psw1;"
-                           data-message="两次密码输入要一致" data-easytip="theme:easy-blue;"></td>
+                           data-message="两次密码输入要一致" data-easytip="class:easy-blue;"></td>
             </tr>
             <tr>
                 <td>email</td>
                 <td><input name="email" type="text" id="email" data-easyform="email;real-time;easytip:false;"
                            data-message="Email格式要正确"
-                           data-easytip="theme:easy-blue;"></td>
+                           data-easytip="class:easy-blue;"></td>
             </tr>
             <tr>
                 <td>昵称</td>
                 <td><input name="nickname" type="text" id="nickname" data-easyform="length:2 16;"
-                           data-easytip="theme:easy-blue;position:bottom;"></td>
+                           data-easytip="class:easy-blue;position:bottom;"></td>
             </tr>
         </table>
 
@@ -136,9 +136,10 @@
 
     <section id="content3">
         <p>
-            兼容各种主流浏览器，只要支持HTML5就可以了。
+            兼容各种主流浏览器，只要支持HTML5就可以了。IE这种万恶的浏览器，最好自己测试一下吧，我很久没认真研究IE了。
         </p>
 
+        <p>顺便提一句，别拿这个页面验证兼容性，这个页面很多细节都是html5的，但这些只是为了好看，和控件本身无关。并且因为样式表的兼容性问题，该页面在IE8下面根本无法工作。</p>
     </section>
 
 
@@ -215,14 +216,14 @@
             <td>null</td>
             <td>是否可为空</td>
             <td>无</td>
-            <td>无</td>
+            <td>默认所有值都是必填项</td>
             <td>data-easyform="null;"</td>
         </tr>
         <tr>
             <td>email</td>
             <td>Email地址</td>
             <td>无</td>
-            <td>默认所有值都是必填项</td>
+            <td>无</td>
             <td>data-easyform="email;"</td>
         </tr>
         <tr>
@@ -357,7 +358,7 @@
                 <td>是否显示easytip</td>
                 <td>true/false</td>
                 <td>true</td>
-                <td>$("#form").easyform({easytip:true;});</td>
+                <td>$("#form").easyform({easytip:true});</td>
                 <td>data-easyform="easytip:false;"</td>
             </tr>
             </tbody>
@@ -366,9 +367,47 @@
 
 </section>
 
-<section id="content10">
+<section id="content10" style="text-align: center;">
 
-    <p></p>
+    <table class="option">
+        <thead>
+        <tr>
+            <th width="80">事件</th>
+            <th width="500">说明</th>
+            <th width="80">参数</th>
+            <th>示例</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>success</td>
+            <td>成功事件，所有规则成功后，触发该事件。该事件的触发在提交之前。</td>
+            <td>easyform</td>
+            <td>
+                var ef = $('#demo-form').easyform();<br>
+                ef.success = function(ef){ ... }
+            </td>
+        </tr>
+        <tr>
+            <td>error</td>
+            <td>错误事件，每一个发生错误的控件都会触发该事件。一次验证，所有规则都会执行，一个控件上可能同时触发多个error事件。</td>
+            <td>easyform, input, rule</td>
+            <td>
+                var ef = $('#demo-form').easyform();<br>
+                ef.error = function(ef, i, r){ ... }
+            </td>
+        </tr>
+        <tr>
+            <td>per_validation</td>
+            <td>预验证事件，在所有验证规则之前执行。该事件的响应函数如果返回false，则会打断提交。</td>
+            <td>easyform</td>
+            <td>
+                var ef = $('#demo-form').easyform();<br>
+                ef.per_validation = function(ef){ ... }
+            </td>
+        </tr>
+        </tbody>
+    </table>
 
 </section>
 
@@ -395,43 +434,39 @@
     <input id="tab15" type="radio" name="tabs3" class="tab-input">
     <label for="tab15">正则表达式</label>
 
+    <input id="tab16" type="radio" name="tabs3" class="tab-input">
+    <label for="tab16">radio & checkbox</label>
+
     <section id="content14">
         <p>
-            easyform 是一组jQuery插件，包括easyfrom，easytip，easyimagefile，easylanguage。
+            在任意input的data-easyform属性中，添加ajax:fun(a,b,c);就可以定义一个ajax验证规则。其中ajax是固定的，fun是函数名称，任意一个函数都可以，当然函数里即使没执行ajax也无所谓。函数的参数也是完全自定义的，没有任何硬性要求。
         </p>
 
-        <p>
-            easyform是表单验证插件，支持复杂的表单验证规则，并且使用简单。甚至可以做到1行js搞定全部。
-        </p>
+        <p>唯一需要注意的是，ajax规则通过在input上添加easyform-ajax事件来监听验证结果，所以需要你在你的自定义函数中返回easyform-ajax事件，就像这样：</p>
 
-        <p>
-            表单验证，就是这么简单！
-        </p>
+        <p class="code">$("#uid").trigger("easyform-ajax", false);</p>
+
+        <p>true/false代表验证的成功或失败。</p>
     </section>
 
     <section id="content15">
         <p>
-            首先记得加载这么几个文件，把他们放在合适的位置：
+            有些时候，你需要定义自己的规则，所以我添加了一个regex规则，这个规则用于执行你自定义的正则表达式。
         </p>
 
-        <p class="code">
-            &lt;<span class="keyword">link</span> <span class="attr">rel</span>=<span class="value">"stylesheet"</span>
-            <span class="attr">href</span>=<span class="value">"../easyform/easyform.css"</span>&gt;<br>
-            &lt;<span class="keyword">script</span> <span class="attr">src</span>=<span class="value">"js/jquery-2.1.0.min.js"</span>&gt;&lt;/<span
-                class="keyword">script</span>&gt;<br>
-            &lt;<span class="keyword">script</span> <span class="attr">src</span>=<span class="value">"../easyform/easyform.js"</span>&gt;&lt;/<span
-                class="keyword">script</span>&gt;<br>
-        </p>
+        <p class="code">data-easyform="^(\\d{4})-(\\d{2})-(\\d{2})$;"</p>
 
-        <p>其中，jquery-2.1.0.min.js是jQuery，随便选个流行的版本就行。不要低于1.7。顺序别颠倒，因为easyform依赖于jquery，所以要先加载jquery。</p>
+        <p>类似这样的定义即可。需要注意的是\\需要写两次，因为会被转意，而开头和结尾的/不要写进去。</p>
 
+    </section>
+
+    <section id="content16">
         <p>
-            最后，在document的ready里加上
+            这个插件支持radio和checkbox，但因为这两个控件的特殊性，所以，只有null规则对这两个控件有效，另外，这两个控件都是成组使用的，所以，每组控件只有第一个会被验证，其余的控件，即使定义了data-easyfrom、data-message之类的属性，也会被忽略。
         </p>
 
-        <p class="code">
-            $("#form").easyform();
-        </p>
+        <p>另外，easytip的定位，是基于宿主的位置的。某些更改radio和checkbox外观的插件，会将他们藏起来，用label或其他标签代替，这种情况下，easytip将无法正确显示。</p>
+
 
     </section>
 
@@ -466,7 +501,7 @@
             </tr>
             <tr>
                 <th>简介</th>
-                <td><textarea id="about" name="about" style="width: 240px;"></textarea></td>
+                <td><textarea id="about" name="about" style="width: 300px;"></textarea></td>
             </tr>
         </table>
 
@@ -478,15 +513,180 @@
     </form>
 </div>
 
+<!--easytip-->
+<div class="source-div">
+
+    <h3>easytip</h3>
+
+    <input id="tab21" type="radio" name="tabs4" checked class="tab-input">
+    <label for="tab21">说明</label>
+
+    <input id="tab22" type="radio" name="tabs4" class="tab-input">
+    <label for="tab22">配置</label>
+
+    <input id="tab23" type="radio" name="tabs4" class="tab-input">
+    <label for="tab23">方法</label>
+
+    <input id="tab24" type="radio" name="tabs4" class="tab-input">
+    <label for="tab24">事件</label>
+
+    <section id="content21">
+        <p>
+            easytip虽然被用于easyform，但其实easytip是可以独立作为一个tooltip插件使用的。
+        </p>
+
+        <p>从上面的例子也可以看到，easytip的外观是可以定制的。而且很简单。我内置了几套样式，你也可以写新的。</p>
+
+        <p>easytip使用起来也很简单。</p>
+
+        <p class="code">
+            var tip=$("#uid").easytip();<br>
+            tip.show("Hello!");
+        </p>
+
+    </section>
+
+    <section id="content22" style="text-align: center;">
+        <p style="text-align: left;">
+            所有这些配置都可以像data-easyform属性一样，写在data-easytip属性里，也和easyform一样，js配置或者html配置写一个即可。
+        </p>
+        <table class="option">
+            <thead>
+            <tr>
+                <th width="80">项目</th>
+                <th width="300">说明</th>
+                <th width="250">可选值</th>
+                <th>默认值</th>
+                <th>示例</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>position</td>
+                <td>tip出现的位置</td>
+                <td>top, left, bottom, right</td>
+                <td>right</td>
+                <td>$("#uid").easytip({position:top});<br>data-easytip="position:top;"</td>
+            </tr>
+            <tr>
+                <td>left</td>
+                <td>tip出现的位置的X轴偏移量，不要加px这类的单位。</td>
+                <td>int</td>
+                <td>0</td>
+                <td>$("#uid").easytip({left:100});<br>data-easytip="left:100;"</td>
+            </tr>
+            <tr>
+                <td>top</td>
+                <td>tip出现的位置的Y轴偏移量，不要加px这类的单位。</td>
+                <td>int</td>
+                <td>0</td>
+                <td>$("#uid").easytip({top:100});<br>data-easytip="top:100;"</td>
+            </tr>
+            <tr>
+                <td>disappear</td>
+                <td>tip消失的方式。</td>
+                <td>self：点击自己, other：点击其他, lost-focus：失去焦点, none：永不消失, N：N毫秒后消失</td>
+                <td>other</td>
+                <td>$("#uid").easytip({disappear:other});<br>$("#uid").easytip({disappear:100});<br>data-easytip="disappear:100;"
+                </td>
+            </tr>
+            <tr>
+                <td>speed</td>
+                <td>出现和消失的动画速度。</td>
+                <td>和jquery的fadeIn函数一致</td>
+                <td>fast</td>
+                <td>$("#uid").easytip({speed:"normal"});<br>data-easytip="speed:200;"</td>
+            </tr>
+            <tr>
+                <td>class</td>
+                <td>样式。easyform.css里有几个默认的样式定义。</td>
+                <td>string</td>
+                <td>easy-white</td>
+                <td>$("#uid").easytip({class:"easy-red"});<br>data-easytip="class:easy-red;"</td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section id="content23" style="text-align: center;">
+        <table class="option">
+            <thead>
+            <tr>
+                <th width="200">方法</th>
+                <th width="320">说明</th>
+                <th>参数</th>
+                <th>返回值</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>show(msg)</td>
+                <td>显示tip。</td>
+                <td>msg：string，要显示的消息。</td>
+                <td>无</td>
+            </tr>
+            <tr>
+                <td>close</td>
+                <td>关闭提示信息</td>
+                <td>无</td>
+                <td>无</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </section>
+
+    <section id="content24" style="text-align: center;">
+        <table class="option">
+            <thead>
+            <tr>
+                <th width="80">事件</th>
+                <th width="320">说明</th>
+                <th>参数</th>
+                <th>示例</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>onshow</td>
+                <td>显示事件，开始显示的第一件事就是执行该事件。</td>
+                <td>parent, tip</td>
+                <td>$("#uid").easytip({onshow:function(parent, tip){ ... });</td>
+            </tr>
+            <tr>
+                <td>onclose</td>
+                <td>隐藏事件，tip从显示状态切换成不显示时触发该事件。</td>
+                <td>parent, tip</td>
+                <td>$("#uid").easytip({onclose:function(parent, tip){ ... });</td>
+            </tr>
+            </tbody>
+        </table>
+
+    </section>
+
 </div>
+
+<div class="footer">
+    十分感谢你的光临，如果有什么问题，可以加QQ群，222578556（Hello PHP），我是群主：大树。
+</div>
+
+</div>
+
+
 
 <script>
 
     $(document).ready(function ()
     {
-        $('#reg-form').easyform();
+        var v = $('#reg-form').easyform();
 
         $('#demo-form').easyform();
+
+        v.error = function (ef, i, r)
+        {
+            /*if(i.id=="uid" && r == "length" )
+             alert("Error事件：" + i.id + "对象的值不符合" + r + "规则");*/
+        }
     });
 
     function ajax_demo(p)

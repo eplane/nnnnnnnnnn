@@ -131,8 +131,8 @@ function easy_load_options(id, name)
 
         init: function ()
         {
-            var ei = this;
-            ei._load();
+            var $this = this;
+            //$this._load();
 
             //改写 submit 的属性，便于控制
             this.submit_button = this.form.find("input:submit");
@@ -144,7 +144,7 @@ function easy_load_options(id, name)
                 //提交前判断
                 button.click(function ()
                 {
-                    ei.submit(true);
+                    $this.submit(true);
                 });
             });
 
@@ -160,8 +160,6 @@ function easy_load_options(id, name)
             {
                 //排除 hidden、button、submit、checkbox、radio、file
                 if (input.type != "hidden" && input.type != "button" && input.type != "submit"
-                        //&& input.type != "checkbox"
-                        //&& input.type != "radio"
                     && input.type != "file")
                 {
                     if (input.type == "radio" || input.type == "checkbox")
@@ -179,13 +177,13 @@ function easy_load_options(id, name)
 
                     var checker = $(input).easyinput({easytip: ev.easytip});
 
-                    checker.error = function (e)
+                    checker.error = function (e, r)
                     {
                         ev.is_submit = false;
                         ev.result.push(e);
 
                         if (!!ev.error)    //失败事件
-                            ev.error(e);
+                            ev.error(ev, e, r);
                     };
 
                     checker.success = function (e)
@@ -196,7 +194,7 @@ function easy_load_options(id, name)
                             ev.counter = 0;
 
                             if (!!ev.success)    //成功事件
-                                ev.success();
+                                ev.success(ev);
 
                             if (!!ev.is_submit)
                             {
@@ -225,7 +223,7 @@ function easy_load_options(id, name)
             //执行per_validation事件
             if (this.per_validation)
             {
-                this.is_submit = this.per_validation();
+                this.is_submit = this.per_validation(this);
             }
 
             //如果没有需要判断的控件
@@ -363,7 +361,7 @@ function easy_load_options(id, name)
         _error: function (rule)
         {
             if (!!this.error)
-                this.error(this.input, rule);
+                this.error(this.input[0], rule);
 
             if (false == this.is_error)
             {
@@ -615,7 +613,6 @@ function easy_load_options(id, name)
 })(jQuery, window, document);
 
 //easytip
-//TODO:BUG 多个tip显示状态不同步时，会出现显示问题
 (function ($, window, document, undefined)
 {
     var _easytip = function (ele, opt)
@@ -632,11 +629,10 @@ function easy_load_options(id, name)
             position: "right",           //top, left, bottom, right
             disappear: "other",       //self, other, lost-focus, none, N seconds
             speed: "fast",
-            theme: "easy-white",
+            class: "easy-white",
             arrow: "bottom",          //top, left, bottom, right 自动，手动配置无效
             onshow: null,               //事件
-            onclose: null,               //事件
-            style: {}
+            onclose: null               //事件
         };
 
         this._fun_cache = Object();    //响应函数缓存，用来保存show里面自动添加的click函数，以便于后面的unbind针对性的一个一个删除
@@ -707,15 +703,10 @@ function easy_load_options(id, name)
             var text = $("#" + this.id + " .easytip-text");
             var arrow = $("#" + this.id + " .easytip-arrow");
 
-            text.addClass(this.options.theme);
+            text.addClass(this.options.class);
 
             arrow.css("border-color", "transparent transparent transparent transparent");
             tip.css("box-sizing", "content-box");
-
-            if (this.options.style != null && typeof(this.options.style) == "object")
-            {
-                text.css(this.options.style);
-            }
         },
 
         _arrow: function ()
@@ -835,7 +826,7 @@ function easy_load_options(id, name)
 
             tip.fadeIn(speed, function ()
             {
-                if (!!onshow)    onshow({parent: parent, target: tip[0]});
+                if (!!onshow)    onshow(parent, tip[0]);
 
                 if (!isNaN(disappear))
                 {
@@ -844,7 +835,7 @@ function easy_load_options(id, name)
                     {
                         tip.fadeOut(speed, function ()
                         {
-                            if (!!onclose)    onclose({parent: parent, target: tip[0]});
+                            if (!!onclose)    onclose(parent, tip[0]);
                         });
 
                     }, disappear);
@@ -857,7 +848,7 @@ function easy_load_options(id, name)
                         {
                             tip.fadeOut(speed, function ()
                             {
-                                if (!!onclose)    onclose({parent: parent, target: tip[0]});
+                                if (!!onclose)   onclose(parent, tip[0]);
                                 $(document).unbind("click", $this._fun_cache[tip[0].id]);
                             });
                         }
@@ -865,7 +856,7 @@ function easy_load_options(id, name)
                         {
                             tip.fadeOut(speed, function ()
                             {
-                                if (!!onclose)    onclose({parent: parent, target: tip[0]});
+                                if (!!onclose)    onclose(parent, tip[0]);
                                 $(document).unbind("click", $this._fun_cache[tip[0].id]);
                             });
                         }
@@ -877,7 +868,7 @@ function easy_load_options(id, name)
                     {
                         tip.fadeOut(speed, function ()
                         {
-                            if (!!onclose)    onclose({parent: parent, target: tip[0]});
+                            if (!!onclose)    onclose(parent, tip[0]);
                             $(parent).unbind("focusout");
                         });
                     });
@@ -893,7 +884,7 @@ function easy_load_options(id, name)
 
             tip.fadeOut(this.options.speed, function ()
             {
-                if (!!onclose)    onclose({parent: parent, target: tip[0]});
+                if (!!onclose)    onclose(parent, tip[0]);
             });
         }
     };
